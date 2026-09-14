@@ -116,9 +116,11 @@
  {
   "url": "https://arpit.substack.com/p/designing-idempotent-payment-apis",
   "titles": [
+   "Designing Idempotent Payment APIs",
    "Designing Idempotent Payment APIs (Arpit Bhayani)"
   ],
   "files": [
+   "07-thanh-toan-vn.md",
    "09-kien-truc-phan-mem-rental.md"
   ],
   "title": "Designing Idempotent Payment APIs (Arpit Bhayani)",
@@ -724,6 +726,7 @@
    "ctsv.uit.edu.vn",
    "UIT CTSV — Chương trình cho sinh viên mượn máy tính miễn phí (Quỹ Dariu)",
    "ctsv.uit.edu.vn — \"Chương trình cho sinh viên mượn máy tính miễn phí\"",
+   "ctsv.uit.edu.vn — Chương trình cho sinh viên mượn máy tính miễn phí",
    "Chương trình cho sinh viên mượn máy tính miễn phí — CTSV, ĐH CNTT ĐHQG TP.HCM"
   ],
   "files": [
@@ -756,6 +759,7 @@
   ],
   "files": [
    "03-fpt-da-nang-boi-canh.md",
+   "14-marketing-sinh-vien.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "\"Mùa học thêm\" tại Đại học FPT",
@@ -981,6 +985,7 @@
   ],
   "files": [
    "03-fpt-da-nang-boi-canh.md",
+   "14-marketing-sinh-vien.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "Quy chế tuyển sinh hệ đại học chính quy 2025 — ĐH FPT",
@@ -1134,6 +1139,7 @@
    "01-thi-truong-cho-thue-laptop-vn.md",
    "03-fpt-da-nang-boi-canh.md",
    "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "Top 7 dịch vụ cho thuê laptop Đà Nẵng uy tín, giá rẻ — danang.plus",
@@ -1501,6 +1507,7 @@
   ],
   "files": [
    "02-nen-tang-cho-thue-quoc-te.md",
+   "07-thanh-toan-vn.md",
    "12-ux-tham-chieu.md"
   ],
   "title": "Stripe Docs — Place an extended hold on an online card payment",
@@ -1509,10 +1516,12 @@
  {
   "url": "https://docs.stripe.com/terminal/features/extended-authorizations",
   "titles": [
-   "Stripe Docs — Terminal extended authorizations"
+   "Stripe Docs — Terminal extended authorizations",
+   "Stripe Terminal — extended authorizations"
   ],
   "files": [
    "02-nen-tang-cho-thue-quoc-te.md",
+   "07-thanh-toan-vn.md",
    "12-ux-tham-chieu.md"
   ],
   "title": "Stripe Docs — Terminal extended authorizations",
@@ -1758,13 +1767,14 @@
  {
   "url": "https://www.facebook.com/p/FPTShop-%C4%90%C3%A0-N%E1%BA%B5ng-07-Nguy%E1%BB%85n-V%C4%83n-Tho%E1%BA%A1i-100068984088734",
   "titles": [
-   "FPTShop Đà Nẵng 07 Nguyễn Văn Thoại"
+   "FPTShop Đà Nẵng 07 Nguyễn Văn Thoại",
+   "FPTShop Đà Nẵng 07 Nguyễn Văn Thoại — fanpage"
   ],
   "files": [
    "01-thi-truong-cho-thue-laptop-vn.md",
    "14-marketing-sinh-vien.md"
   ],
-  "title": "FPTShop Đà Nẵng 07 Nguyễn Văn Thoại",
+  "title": "FPTShop Đà Nẵng 07 Nguyễn Văn Thoại — fanpage",
   "host": "facebook.com"
  },
  {
@@ -1918,6 +1928,7 @@
   ],
   "files": [
    "03-fpt-da-nang-boi-canh.md",
+   "14-marketing-sinh-vien.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "1.000 tân sinh viên ĐH FPT Đà Nẵng khai giảng năm học mới — FPT City",
@@ -2222,6 +2233,17 @@
    "04-ekyc-viet-nam.md"
   ],
   "title": "definev/vnpt_ekyc",
+  "host": "github.com"
+ },
+ {
+  "url": "https://github.com/diepxuan/diepxuan.github.io/blob/main/van-ban/dan-su/dan-su.md",
+  "titles": [
+   "diepxuan/diepxuan.github.io"
+  ],
+  "files": [
+   "05-phap-ly-hop-dong-thue.md"
+  ],
+  "title": "diepxuan/diepxuan.github.io",
   "host": "github.com"
  },
  {
@@ -3482,7 +3504,8 @@
   ],
   "files": [
    "01-thi-truong-cho-thue-laptop-vn.md",
-   "12-ux-tham-chieu.md"
+   "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md"
   ],
   "title": "laptopsgn.com/tin-tuc/dich-vu-cho-thue-laptop-tphcm-gia-re-giao-2h/",
   "host": "laptopsgn.com"
@@ -3850,6 +3873,7 @@
    "01-thi-truong-cho-thue-laptop-vn.md",
    "03-fpt-da-nang-boi-canh.md",
    "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "Dịch vụ cho thuê laptop tại Đà Nẵng — Đình Hậu Computer",
@@ -4038,6 +4062,7 @@
    "01-thi-truong-cho-thue-laptop-vn.md",
    "03-fpt-da-nang-boi-canh.md",
    "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "Cho thuê laptop 2025 cấu hình mạnh giá chỉ từ 29.000đ — MIT Group",
@@ -4813,6 +4838,17 @@
   "host": "rapideyeinspections.com"
  },
  {
+  "url": "https://raw.githubusercontent.com/diepxuan/diepxuan.github.io/main/van-ban/dan-su/dan-su.md",
+  "titles": [
+   "Bộ pháp điển – đề mục Dân sự (diepxuan.github.io mirror)"
+  ],
+  "files": [
+   "05-phap-ly-hop-dong-thue.md"
+  ],
+  "title": "Bộ pháp điển – đề mục Dân sự (diepxuan.github.io mirror)",
+  "host": "raw.githubusercontent.com"
+ },
+ {
   "url": "https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-management/actions/autopilot-reset.md",
   "titles": [
    "actions/autopilot-reset.md"
@@ -4880,6 +4916,17 @@
    "06-chong-trom-mdm.md"
   ],
   "title": "autopilot/bitlocker.md",
+  "host": "raw.githubusercontent.com"
+ },
+ {
+  "url": "https://raw.githubusercontent.com/caubetotbunggg/BTTH3/main/data/processed/text/26-2023-QH15.txt",
+  "titles": [
+   "caubetotbunggg/BTTH3"
+  ],
+  "files": [
+   "05-phap-ly-hop-dong-thue.md"
+  ],
+  "title": "caubetotbunggg/BTTH3",
   "host": "raw.githubusercontent.com"
  },
  {
@@ -4952,6 +4999,17 @@
    "06-chong-trom-mdm.md"
   ],
   "title": "handbook/company/pricing-features-table.yml",
+  "host": "raw.githubusercontent.com"
+ },
+ {
+  "url": "https://raw.githubusercontent.com/kohaku4869/Vietnam-legal-assistant/main/vectorstore/civil_law/texts.txt",
+  "titles": [
+   "kohaku4869/Vietnam-legal-assistant"
+  ],
+  "files": [
+   "05-phap-ly-hop-dong-thue.md"
+  ],
+  "title": "kohaku4869/Vietnam-legal-assistant",
   "host": "raw.githubusercontent.com"
  },
  {
@@ -5055,6 +5113,17 @@
    "06-chong-trom-mdm.md"
   ],
   "title": "memdocs/intune/fundamentals/licensing.md",
+  "host": "raw.githubusercontent.com"
+ },
+ {
+  "url": "https://raw.githubusercontent.com/newnol/vn-legal-corpus/main/README.md",
+  "titles": [
+   "newnol/vn-legal-corpus"
+  ],
+  "files": [
+   "05-phap-ly-hop-dong-thue.md"
+  ],
+  "title": "newnol/vn-legal-corpus",
   "host": "raw.githubusercontent.com"
  },
  {
@@ -5601,6 +5670,7 @@
    "sggp.org.vn — \"Cho sinh viên mượn laptop miễn phí\"",
    "SGGP — Cho sinh viên mượn laptop miễn phí",
    "sggp.org.vn",
+   "sggp.org.vn — Cho sinh viên mượn laptop miễn phí",
    "Cho sinh viên mượn laptop miễn phí — SGGP"
   ],
   "files": [
@@ -5675,9 +5745,11 @@
  {
   "url": "https://simplico.net/2026/04/04/idempotency-in-payment-apis-prevent-double-charges-with-stripe-omise-and-2c2p",
   "titles": [
+   "Idempotency in Payment APIs",
    "Idempotency in Payment APIs: Prevent Double Charges with Stripe, Omise, and 2C2P (Simplico, 04/04/2026)"
   ],
   "files": [
+   "07-thanh-toan-vn.md",
    "09-kien-truc-phan-mem-rental.md"
   ],
   "title": "Idempotency in Payment APIs: Prevent Double Charges with Stripe, Omise, and 2C2P (Simplico, 04/04/2026)",
@@ -5708,6 +5780,7 @@
    "01-thi-truong-cho-thue-laptop-vn.md",
    "03-fpt-da-nang-boi-canh.md",
    "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
   "title": "skycomputer.vn/dich-vu/cho-thue-may-tinh-laptop-tai-da-nang/",
@@ -5913,6 +5986,7 @@
   ],
   "files": [
    "02-nen-tang-cho-thue-quoc-te.md",
+   "07-thanh-toan-vn.md",
    "12-ux-tham-chieu.md"
   ],
   "title": "Stripe — What are preauthorization charges on credit cards",
@@ -6391,6 +6465,7 @@
    "thuvienphapluat.vn"
   ],
   "files": [
+   "07-thanh-toan-vn.md",
    "08-bao-hiem-rui-ro.md",
    "13-van-hanh-logistics.md"
   ],
@@ -6501,6 +6576,7 @@
    "truonggiang.vn",
    "Cho thuê laptop Đà Nẵng — Trương Giang",
    "Cho thuê laptop Đà Nẵng giá rẻ theo ngày từ 50K — Trương Giang",
+   "truonggiang.vn — Cho thuê laptop",
    "Trương Giang",
    "Cho thuê laptop Đà Nẵng theo ngày — Trương Giang (từ 50.000đ/ngày)"
   ],
@@ -6508,6 +6584,7 @@
    "01-thi-truong-cho-thue-laptop-vn.md",
    "03-fpt-da-nang-boi-canh.md",
    "12-ux-tham-chieu.md",
+   "13-van-hanh-logistics.md",
    "14-marketing-sinh-vien.md",
    "16-thi-cu-va-rui-ro-ngay-thi.md"
   ],
@@ -6849,12 +6926,14 @@
   "titles": [
    "vietnam.vn — FPT University 'Learn Now – Pay Later'",
    "vietnam.vn",
-   "FPT University hỗ trợ 1.000 tân sinh viên 2025 \"Học trước – Trả sau\" — vietnam.vn"
+   "FPT University hỗ trợ 1.000 tân sinh viên 2025 \"Học trước – Trả sau\" — vietnam.vn",
+   "Trường ĐH FPT hỗ trợ 1.000 tân sinh viên theo chính sách \"Học trước – Trả sau\" — vietnam.vn"
   ],
   "files": [
-   "03-fpt-da-nang-boi-canh.md"
+   "03-fpt-da-nang-boi-canh.md",
+   "14-marketing-sinh-vien.md"
   ],
-  "title": "FPT University hỗ trợ 1.000 tân sinh viên 2025 \"Học trước – Trả sau\" — vietnam.vn",
+  "title": "Trường ĐH FPT hỗ trợ 1.000 tân sinh viên theo chính sách \"Học trước – Trả sau\" — vietnam.vn",
   "host": "vietnam.vn"
  },
  {
@@ -6900,6 +6979,18 @@
   ],
   "title": "Arrays and range types in PostgreSQL: tags, bookings, EXCLUDE",
   "host": "vikulin-va.ru"
+ },
+ {
+  "url": "https://www.vista.gov.vn/vi/news/cac-linh-vuc-khoa-hoc-va-cong-nghe/khoi-nguon-sang-tao-tre-tai-sv-startup-2025-11260.html",
+  "titles": [
+   "vista.gov.vn — \"Khơi nguồn sáng tạo trẻ tại SV-STARTUP 2025\"",
+   "vista.gov.vn — Khơi nguồn sáng tạo trẻ tại SV-STARTUP 2025"
+  ],
+  "files": [
+   "14-marketing-sinh-vien.md"
+  ],
+  "title": "vista.gov.vn — \"Khơi nguồn sáng tạo trẻ tại SV-STARTUP 2025\"",
+  "host": "vista.gov.vn"
  },
  {
   "url": "https://vksndtc.gov.vn/tin-tuc/cong-tac-kiem-sat/thuc-hien-dieu-khoan-loai-tru-trach-nhiem-bao-hiem-d10-t11857.html",

@@ -8,7 +8,7 @@ import os, re, sys, json, subprocess, shutil
 from docx import Document
 import mdx
 import refs as refmod
-from mdx import Builder, setup, running_head, cover, toc, new_section, part_divider
+from mdx import Builder, setup, running_head, cover, toc, new_section, part_divider, muc_luc_phu
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOFFICE = "soffice"
@@ -119,6 +119,22 @@ def _opts(lines, i, n):
 
 
 
+def tinh_hinh_bang(blocks):
+    """Đếm trước hình và bảng có chú thích, theo đúng thứ tự xuất hiện."""
+    figs, tabs = [], []
+    for kind, val in blocks:
+        if kind == "fig":
+            path, cap, w, srcn = val
+            fp = path if os.path.isabs(path) else os.path.join(ROOT, path)
+            if cap and os.path.exists(fp):
+                figs.append((len(figs) + 1, cap, "fig%d" % (len(figs) + 1)))
+        elif kind == "table":
+            rows, o = val
+            if o.get("caption"):
+                tabs.append((len(tabs) + 1, o["caption"], "tab%d" % (len(tabs) + 1)))
+    return figs, tabs
+
+
 def tinh_de_muc(blocks):
     """Tính trước danh sách đề mục và số thứ tự — dùng chung cho mục lục và cho lần dựng."""
     heads, c, h1_khong_so = [], [0] * 6, False
@@ -165,6 +181,14 @@ def build(blocks, meta, out_docx, page_map=None, body_pt=11.5):
                         for idx, (lvl, num, text) in enumerate(heads)]
                 toc(b, ents, page_map=page_map)
                 toc_entries = ents
+                b.pagebreak()
+            elif val == "figindex":
+                figs, _ = tinh_hinh_bang(blocks)
+                muc_luc_phu(b, figs, "DANH MỤC HÌNH", "Hình", page_map=page_map)
+                b.pagebreak()
+            elif val == "tabindex":
+                _, tabs = tinh_hinh_bang(blocks)
+                muc_luc_phu(b, tabs, "DANH MỤC BẢNG", "Bảng", page_map=page_map)
                 b.pagebreak()
             elif val == "landscape":
                 new_section(doc, landscape=True)
@@ -223,6 +247,34 @@ def _la_trang_muc_luc(txt):
     if "MỤC LỤC" in txt:
         return True
     return len(re.findall(r"\.{8,}\s*\d+\s*$", txt, re.M)) >= 4
+
+
+def caption_pages(pdf, n_fig, n_tab, bo_qua):
+    txt = subprocess.run(["pdftotext", "-layout", pdf, "-"],
+                         capture_output=True, text=True, timeout=300).stdout
+    pages = [re.sub(r"\s+", " ", p) for p in txt.split("\f")]
+    out = {}
+    for tien_to, khoa, n in (("Hình", "fig", n_fig), ("Bảng", "tab", n_tab)):
+        start = bo_qua
+        for i in range(1, n + 1):
+            needle = "%s %d." % (tien_to, i)
+            found = None
+            for pi in range(start, len(pages)):
+                if needle in pages[pi]:
+                    found = pi + 1; start = pi; break
+            out["%s%d" % (khoa, i)] = str(found or (bo_qua + 1))
+    return out
+
+
+def so_trang_bo_qua(pdf):
+    txt = subprocess.run(["pdftotext", "-layout", pdf, "-"],
+                         capture_output=True, text=True, timeout=300).stdout
+    pages = txt.split("\f")
+    bo_qua = 0
+    for i, pg in enumerate(pages[:14]):
+        if _la_trang_muc_luc(pg):
+            bo_qua = i + 1
+    return bo_qua
 
 
 def heading_pages(pdf, heads):
@@ -310,6 +362,8 @@ def main():
         pdf = to_pdf(docx_path, outdir)
         pages = heading_pages(pdf, heads)
         new_map = {"sec%d" % i: str(pages[i]) for i in range(len(heads))}
+        figs, tabs = tinh_hinh_bang(blocks)
+        new_map.update(caption_pages(pdf, len(figs), len(tabs), so_trang_bo_qua(pdf)))
         print("lượt %d: trang cuối = %s" % (attempt + 1, pages[-1] if pages else "?"))
         if new_map == prev:
             print("số trang đã ổn định."); break

@@ -223,6 +223,8 @@ class Builder:
         self.tab_n = 0
         self.bid = 1000
         self.headings = []           # (level, number, text, anchor)
+        self.figures = []            # (số, chú thích, anchor)
+        self.tables = []             # (số, chú thích, anchor)
         self.counters = [0, 0, 0, 0, 0, 0]
         self.fig_prefix = figure_prefix
         self.tab_prefix = table_prefix
@@ -336,6 +338,9 @@ class Builder:
         if caption:
             self.tab_n += 1
             cp = self.doc.add_paragraph()
+            self.bid += 1
+            _bookmark(cp, "tab%d" % self.tab_n, self.bid)
+            self.tables.append((self.tab_n, caption, "tab%d" % self.tab_n))
             cp.alignment = WD_ALIGN_PARAGRAPH.LEFT
             r = cp.add_run("%s %d. " % (self.tab_prefix, self.tab_n))
             r.bold = True; r.font.size = Pt(fp - 0.5); r.font.name = HEAD_FONT
@@ -368,6 +373,9 @@ class Builder:
         if caption:
             self.fig_n += 1
             cp = self.doc.add_paragraph()
+            self.bid += 1
+            _bookmark(cp, "fig%d" % self.fig_n, self.bid)
+            self.figures.append((self.fig_n, caption, "fig%d" % self.fig_n))
             cp.alignment = WD_ALIGN_PARAGRAPH.CENTER
             r = cp.add_run("%s %d. " % (self.fig_prefix, self.fig_n))
             r.bold = True; r.font.size = Pt(self.body_pt - 2); r.font.name = HEAD_FONT
@@ -625,3 +633,40 @@ def part_divider(b, roman, title, blurb=""):
             rr.font.name = HEAD_FONT
         z.paragraph_format.line_spacing = 1.4
     b.pagebreak()
+
+
+# ----------------------------------------------------------------- danh mục hình, bảng
+def muc_luc_phu(b, items, tieu_de, tien_to, page_map=None):
+    """Danh mục hình hoặc bảng: items = [(số, chú thích, anchor)]"""
+    doc = b.doc
+    h = doc.add_paragraph()
+    r = h.add_run(tieu_de)
+    r.font.name = HEAD_FONT; r.font.size = Pt(14); r.bold = True; r.font.color.rgb = NAVY
+    h.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    h.paragraph_format.space_after = Pt(12)
+    right = doc.sections[0].page_width - doc.sections[0].left_margin - doc.sections[0].right_margin
+    for num, cap, anchor in items:
+        p = doc.add_paragraph()
+        pf = p.paragraph_format
+        pf.left_indent = Cm(1.9); pf.first_line_indent = Cm(-1.9)
+        pf.space_after = Pt(2); pf.line_spacing = 1.12
+        pf.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        pf.tab_stops.add_tab_stop(right, WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        clean = re.sub(r"\[\[\d+(?:,\s*\d+)*\]\]", "", cap)
+        clean = re.sub(r"\*\*(.+?)\*\*", r"\1", clean)
+        clean = re.sub(r"`([^`]+)`", r"\1", clean)
+        clean = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", clean)
+        clean = re.sub(r"\s+", " ", clean).strip()
+        if len(clean) > 120:
+            clean = clean[:117].rstrip() + "…"
+        _internal_link(p, "%s %d. %s" % (tien_to, num, clean), anchor, color="333A42")
+        for rr in p.runs:
+            rr.font.name = HEAD_FONT
+        for run_el in p._p.iter(qn("w:r")):
+            rPr = run_el.find(qn("w:rPr"))
+            if rPr is None:
+                rPr = OxmlElement("w:rPr"); run_el.insert(0, rPr)
+            sz = OxmlElement("w:sz"); sz.set(qn("w:val"), "20"); rPr.append(sz)
+        pg = (page_map or {}).get(anchor, "")
+        tr = p.add_run("\t" + str(pg))
+        tr.font.name = HEAD_FONT; tr.font.size = Pt(10); tr.font.color.rgb = GREY

@@ -1,5 +1,7 @@
 <<<cover>>>
 <<<toc>>>
+<<<figindex>>>
+<<<tabindex>>>
 
 #! Tóm tắt điều hành
 

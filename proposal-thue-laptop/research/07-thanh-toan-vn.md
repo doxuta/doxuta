@@ -217,6 +217,21 @@ qr_string = build_vietqr(
 #   import qrcode; qrcode.make(qr_string).save("qr.png")
 ```
 
+#### ✅ Đoạn code trên ĐÃ ĐƯỢC CHẠY THỬ VÀ KIỂM CHỨNG OFFLINE
+
+Đây là **thứ duy nhất trong tài liệu này được kiểm chứng bằng thực nghiệm** (vì nó không cần mạng):
+
+| Phép kiểm | Kết quả |
+|---|---|
+| **CRC-16/CCITT-FALSE với vector chuẩn** `"123456789"` | Trả về **`29B1`** — **khớp đúng** giá trị chuẩn quốc tế `0x29B1` ✅ |
+| Sinh chuỗi QR mẫu | `00020101021238540010A00000072701240006970436011012345678900208QRIBFTTA530370454061500005802VN5907EXAMLAP6007DA NANG62120808EXL7K2M96304823E` (139 ký tự) |
+| Parse ngược chuỗi theo TLV | Tách sạch thành các tag `00`,`01`,`38`,`53`,`54`,`58`,`59`,`60`,`62`,`63` ✅ |
+| Kiểm tra CRC round-trip | `823E` == `823E` ✅ |
+| Tag `54` (số tiền) | `150000` ✅ |
+| Tag `62`→`08` (nội dung) | `EXL7K2M9` ✅ |
+
+> ⚠️ **Kiểm chứng này chỉ chứng minh code ĐÚNG VỀ MẶT THUẬT TOÁN** (TLV hợp lệ, CRC chuẩn). Nó **KHÔNG** chứng minh mã BIN `970436` đúng, cũng **KHÔNG** chứng minh app ngân hàng Việt Nam sẽ chấp nhận chuỗi này. **Vẫn phải test bằng app ngân hàng thật** theo 4 bước ở dưới.
+
 **Kiểm thử bắt buộc trước khi chạy thật** `[SL]`:
 1. Sinh QR với số tiền **2.000 đ**
 2. Quét bằng **ít nhất 4 app ngân hàng khác nhau** (VCB, MB, Techcombank, MoMo)
@@ -716,3 +731,289 @@ Phân tích này **không cần dữ liệu ngoài**: `[SL]`
 > 💡 **Nếu vấn đề thật sự là "sinh viên không đủ tiền ký cược" thì lời giải nằm ở chỗ khác, và đều miễn phí:** (a) **giảm mức ký cược** kết hợp **người bảo lãnh**; (b) **ký cược theo bậc** — khách quen ký cược thấp hơn; (c) **bảo lãnh của tổ chức** — CLB, khoa, hoặc phòng CTSV đứng ra bảo lãnh cho sinh viên khó khăn; (d) **quỹ hỗ trợ** từ chính ExamLap cho một số suất/kỳ như hoạt động cộng đồng — vừa giải quyết vấn đề, vừa là **chất liệu marketing tốt hơn nhiều so với BNPL**. `[SL]` Xem thêm `./14-marketing-sinh-vien.md`.
 
 ---
+
+<a name="8"></a>
+# 8. ⭐ KHUYẾN NGHỊ CỤ THỂ VÀ RẺ NHẤT CHO NHÓM SINH VIÊN
+
+## 8.1. Kiến trúc thanh toán khuyến nghị — "VietQR thuần, không trung gian"
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  GIAI ĐOẠN 1 (NĂM ĐẦU — 400 lượt/năm)                            │
+│                                                                  │
+│  Tài khoản NH cá nhân/hộ KD (VẬN HÀNH)  ← tiền thuê              │
+│  Tài khoản NH riêng (KÝ CƯỢC)           ← tiền ký cược ⭐         │
+│            ▲                                                     │
+│            │ chuyển khoản NAPAS 24/7 (miễn phí, tức thì)         │
+│            │                                                     │
+│      [ QR ĐỘNG VietQR tự sinh — 40 dòng code, 0 đ ]              │
+│            ▲                                                     │
+│            │ quét                                                │
+│      [ Điện thoại sinh viên ]                                    │
+│                                                                  │
+│  ĐỐI SOÁT: người trực nhìn thông báo app NH → bấm xác nhận       │
+│            (KHÔNG cần dịch vụ webhook ở giai đoạn này)           │
+│                                                                  │
+│  HOÀN KÝ CƯỢC: chuyển khoản ngược tại quầy, trước mặt khách      │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+## 8.2. Bảng chi phí — con số cụ thể
+
+| Hạng mục | Chi phí năm 1 | Căn cứ |
+|---|---|---|
+| Sinh mã VietQR động | **0 đ** | Tự code, thư viện `qrcode` nguồn mở `[SL]` |
+| Nhận tiền (NAPAS 24/7) | **0 đ** | Người **chuyển** trả phí, mà hầu hết NH bán lẻ đã miễn phí `[KT-C]` |
+| Hoàn ký cược (chuyển khoản đi) | **0 đ** | Cần **xác nhận với ngân hàng cụ thể** rằng chuyển khoản đi cũng miễn phí `[CHƯA CÓ]` |
+| Dịch vụ webhook biến động số dư | **0 đ** | **Không dùng ở giai đoạn 1** — đối soát thủ công `[SL]` |
+| Cổng thanh toán | **0 đ** | **Không dùng** — xem Mục 3.3 `[SL]` |
+| Hoá đơn điện tử | **0 đ** | Dưới ngưỡng bắt buộc — xem Mục 6 `[KT-TB]` |
+| Thuế GTGT + TNCN | **0 đ** | 82 tr < ngưỡng 200 tr/năm `[KT-TB]` |
+| Lệ phí đăng ký hộ kinh doanh | `[CHƯA CÓ]` | Mức rất thấp, một lần. Tra tại UBND phường ở Đà Nẵng |
+| Mở thêm 1 tài khoản NH cho tiền ký cược | **0 đ** | Mở tài khoản thanh toán cá nhân thường miễn phí `[KT-TB]` |
+| **TỔNG CHI PHÍ THANH TOÁN NĂM 1** | **≈ 0 đ** (+ lệ phí ĐKKD một lần) | |
+
+> ⭐ **Đây là con số mạnh nhất của toàn bộ nghiên cứu và nó DÙNG ĐƯỢC NGAY trong proposal:**
+> **Toàn bộ hạ tầng thu — giữ — hoàn tiền của ExamLap năm đầu có thể vận hành với chi phí gần bằng 0 đồng.**
+> Không phải vì cắt xén, mà vì **ở quy mô 400 lượt/năm, mọi giải pháp trung gian đều đắt hơn giá trị chúng tạo ra.** `[SL]`
+>
+> So sánh để thấy ý nghĩa: nếu dùng cổng thanh toán ở mức phí 2%, chi phí sẽ là **~1.640.000 đ/năm** trên 82 triệu doanh thu — và đổi lại **tiền về chậm T+1…T+3**, khách **chờ lâu mới được hoàn cọc**. Tức là **trả tiền để nhận dịch vụ tệ hơn.**
+
+## 8.3. Lộ trình theo giai đoạn
+
+| Giai đoạn | Điều kiện chuyển | Việc cần làm | Chi phí tăng thêm |
+|---|---|---|---|
+| **GĐ 1** — hiện tại<br>~400 lượt/năm | — | VietQR tự sinh + đối soát thủ công + hoàn tại quầy | 0 đ |
+| **GĐ 2** — khi đối soát thủ công bắt đầu đau<br>*(dấu hiệu: >5 lượt/ngày, hoặc >2 lần/tháng sai sót khớp tiền, hoặc phải trực ngoài giờ)* | Vượt ngưỡng đau | Thêm **dịch vụ webhook biến động số dư** (SePay/Casso/PayOS). Vẫn giữ VietQR | `[CHƯA CÓ]` — dự kiến ở bậc **trăm nghìn đồng/tháng** `[KT-T]` |
+| **GĐ 3** — khi có pháp nhân + cần thẻ quốc tế / khách ngoài trường | Doanh thu > 200 tr/năm | Thêm **cổng thanh toán**, đăng ký thuế đầy đủ, cân nhắc hoá đơn điện tử | % doanh thu + phần mềm HĐĐT |
+
+> ⚠️ **Đừng nhảy cóc.** Mỗi bước chỉ làm khi **nỗi đau thật đã xuất hiện**, không làm vì "cho chuyên nghiệp". Ở một proposal khởi nghiệp sinh viên, **khả năng nhận ra mình chưa cần gì là một điểm mạnh, không phải điểm yếu** — nên nói thẳng điều này trước ban giám khảo. `[SL]`
+
+## 8.4. Checklist triển khai — theo thứ tự
+
+| # | Việc | Ai làm | Xong khi nào |
+|---|---|---|---|
+| 1 | ✅ Xác minh **danh sách BIN ngân hàng** từ nguồn NAPAS chính thức | Kỹ thuật | Trước khi code |
+| 2 | ✅ Viết hàm sinh VietQR (Mục 1.5), **test với 4 app ngân hàng**, chuyển thử 2.000 đ | Kỹ thuật | Tuần 1 |
+| 3 | ✅ Kiểm tra **nội dung CK có bị cắt/thêm tiền tố** ở sao kê không → viết parser bằng **regex** | Kỹ thuật | Tuần 1 |
+| 4 | ✅ **Mở tài khoản ngân hàng riêng cho tiền ký cược** | Vận hành | Tuần 1 |
+| 5 | ✅ Soạn **hợp đồng thuê + biên nhận ký cược**, dùng đúng từ **"ký cược"** (Điều 329 BLDS) | Pháp lý/nội dung | Tuần 2 |
+| 6 | ✅ Công bố **biểu giá bồi thường hư hỏng** rõ ràng, đưa vào hợp đồng | Vận hành | Tuần 2 |
+| 7 | ✅ **Hỏi giảng viên Luật** về câu hỏi ở Mục 5.7 | Cả nhóm | Tuần 2 |
+| 8 | ✅ **Hỏi Chi cục Thuế Đà Nẵng** về nghĩa vụ ở mức 82 tr/năm | Vận hành | Tuần 2 |
+| 9 | ✅ **Đăng ký hộ kinh doanh** | Vận hành | Tuần 3 |
+| 10 | ✅ Gửi **bảng câu hỏi Mục 2.4** cho 5 nhà cung cấp, điền vào bảng 2.3 — **để dành cho GĐ 2, không mua ngay** | Kỹ thuật | Tuần 3–4 |
+| 11 | ✅ Quy trình chống sai sót khi **hoàn tiền thủ công** (Mục 4.5): lưu sẵn STK, 2 người duyệt >1 triệu | Vận hành | Trước khi chạy thật |
+
+---
+
+<a name="9"></a>
+# 9. RỦI RO VÀ ĐIỂM CHẾT
+
+| # | Rủi ro | Mức | Biểu hiện | Cách chặn |
+|---|---|---|---|---|
+| R1 | **Hiểu sai ranh giới trung gian thanh toán** khi mở rộng sang mô hình C2C (sinh viên cho sinh viên thuê, ExamLap giữ tiền giữa) | 🔴🔴🔴 | Bị cơ quan quản lý tuýt còi | Áp dụng **phép thử Mục 5.2** cho **mọi** tính năng mới trước khi làm |
+| R2 | **Tiêu vào tiền ký cược** rồi không hoàn được khi nhiều khách trả máy cùng lúc | 🔴🔴🔴 | Mất uy tín tức thì trong cộng đồng SV, rủi ro pháp lý | **Tài khoản ký cược riêng, bất khả xâm phạm** (Mục 5.6) |
+| R3 | **Gõ sai số tài khoản khi hoàn tiền thủ công** | 🔴🔴 | Mất tiền thật, khó lấy lại | Lưu sẵn STK từ giao dịch đến, không gõ tay; 2 người duyệt |
+| R4 | **Sai mã BIN ngân hàng** trong QR | 🔴🔴 | Tiền vào tài khoản người lạ | Xác minh BIN + test quét thật trước khi chạy |
+| R5 | **Khách chuyển sai nội dung / sai số tiền** | 🟡 | Không khớp được đơn | QR động nhúng sẵn cả 2; vẫn cần quy trình xử lý ngoại lệ thủ công |
+| R6 | **Ngân hàng cắt/sửa nội dung chuyển khoản** | 🟡 | Parser không khớp | Dùng **regex tìm trong chuỗi**, không so sánh bằng `==`; mã đơn ngắn, chỉ A-Z0-9 |
+| R7 | **Độ trễ ghi có lúc cao điểm** | 🟡 | Hàng chờ ở quầy mùa thi | Nút xác nhận thủ công; không chặn cứng quy trình bàn giao |
+| R8 | **Giữ CCCD bản gốc của khách** | 🔴🔴🔴 | Vi phạm pháp luật | Quy tắc cứng: **chỉ chụp ảnh, không giữ bản gốc** |
+| R9 | **Đưa mật khẩu Internet Banking cho dịch vụ bên thứ ba** | 🔴🔴🔴 | Khoá tài khoản, mất quyền bồi thường | Loại ngay nhà cung cấp yêu cầu điều này |
+| R10 | **Vượt ngưỡng 200 triệu đ/năm mà không biết** | 🟡 | Truy thu thuế | Theo dõi doanh thu luỹ kế hằng tháng trong hệ thống |
+| R11 | **Tranh chấp mức trừ tiền ký cược khi máy hư** | 🔴🔴 | Mất khách + lan truyền tiêu cực trong KTX | **Biểu giá bồi thường công khai TRƯỚC**, ảnh chụp máy 2 chiều, cùng xem màn hình khi hoàn |
+| R12 | **Toàn bộ số liệu giá trong tài liệu này là `[CHƯA CÓ]`** | 🔴🔴🔴 | Proposal chứa số bịa → mất uy tín trước ban giám khảo | **Không trích số nào từ tài liệu này. Chạy Mục 10 trước.** |
+
+---
+
+<a name="10"></a>
+# 10. ⭐ KẾ HOẠCH KIỂM CHỨNG — TRUY VẤN CHÍNH XÁC CẦN CHẠY
+
+> **Đây là phần thay thế cho nghiên cứu không thực hiện được.** Mỗi dòng là một truy vấn sẵn sàng copy-paste vào công cụ tìm kiếm, xếp theo **mức độ ưu tiên**. Ước tính: **~2 giờ** làm việc là điền được phần lớn khoảng trống.
+
+## Ưu tiên 1 🔴 — PHÁP LÝ (không có cái này thì proposal không đứng được)
+
+| # | Truy vấn | Cần lấy về |
+|---|---|---|
+| 1 | `Nghị định 52/2024/NĐ-CP thanh toán không dùng tiền mặt toàn văn` | Điều định nghĩa dịch vụ TGTT + danh mục loại hình |
+| 2 | `Nghị định 52/2024 điều kiện cấp giấy phép trung gian thanh toán vốn điều lệ` | Mức vốn điều lệ tối thiểu — xác nhận/bác bỏ con số 50 tỷ |
+| 3 | `dịch vụ hỗ trợ thu hộ chi hộ là gì có cần giấy phép NHNN không` | Ranh giới thu hộ/chi hộ |
+| 4 | `Điều 329 Bộ luật Dân sự 2015 ký cược thuê tài sản động sản` | Nguyên văn điều luật ⭐ |
+| 5 | `Điều 328 Bộ luật Dân sự 2015 đặt cọc` | Nguyên văn |
+| 6 | `doanh nghiệp thu tiền đặt cọc của khách có phải trung gian thanh toán không` | Ý kiến chuyên gia/luật sư |
+| 7 | `xử phạt hoạt động cung ứng dịch vụ trung gian thanh toán không có giấy phép` | Chế tài |
+| 8 | `Nghị định 144/2021 xử phạt cầm cố nhận cầm cố giấy tờ tùy thân CCCD` | Xác minh cảnh báo Mục 4.4 |
+| 9 | `Luật Căn cước 2023 hành vi bị nghiêm cấm chiếm giữ thẻ căn cước` | Xác minh |
+| 10 | `Vietnam payment intermediary service license requirements Decree 52/2024` | Đối chiếu nguồn tiếng Anh |
+
+## Ưu tiên 2 🔴 — GIÁ DỊCH VỤ ĐỐI SOÁT (bảng 2.3 đang rỗng)
+
+| # | Truy vấn |
+|---|---|
+| 11 | `SePay bảng giá gói dịch vụ` · `SePay pricing` |
+| 12 | `SePay đăng ký cá nhân hay doanh nghiệp điều kiện` |
+| 13 | `SePay webhook chữ ký xác thực tài liệu API` |
+| 14 | `Casso bảng giá` · `Casso pricing plan` |
+| 15 | `Casso hộ kinh doanh đăng ký được không` |
+| 16 | `PayOS bảng giá phí giao dịch` · `PayOS pricing` |
+| 17 | `PayOS điều kiện đăng ký cá nhân hộ kinh doanh` |
+| 18 | `Bizfly biến động số dư bảng giá` |
+| 19 | `WeOne biến động số dư giá` |
+| 20 | `so sánh SePay Casso PayOS đối soát biến động số dư` |
+| 21 | `dịch vụ webhook biến động số dư ngân hàng miễn phí Việt Nam` |
+| 22 | `SePay Casso có cần cung cấp mật khẩu internet banking không` ⭐ *(câu hỏi an toàn quan trọng)* |
+
+## Ưu tiên 3 🟡 — CỔNG THANH TOÁN (bảng 3.1 đang rỗng)
+
+| # | Truy vấn |
+|---|---|
+| 23 | `VNPAY biểu phí giao dịch merchant 2026` |
+| 24 | `VNPAY hộ kinh doanh đăng ký merchant hồ sơ` |
+| 25 | `VNPAY API hoàn tiền refund thời gian` |
+| 26 | `MoMo Business phí giao dịch hộ kinh doanh` |
+| 27 | `MoMo API refund hoàn tiền merchant` |
+| 28 | `ZaloPay merchant phí giao dịch đăng ký` |
+| 29 | `OnePay phí giao dịch pre-authorization hold` ⭐ |
+| 30 | `Payoo biểu phí merchant` · `Baokim phí giao dịch` |
+| 31 | `cổng thanh toán Việt Nam T+1 T+2 chu kỳ đối soát chuyển tiền merchant` |
+| 32 | `VNPAY MoMo pre-authorization tạm giữ hạn mức thẻ` ⭐ |
+| 33 | `Vietnam payment gateway pre-authorization hold support` |
+| 34 | `khách sạn Việt Nam giữ tiền cọc thẻ tín dụng pre-auth cổng nào` |
+
+## Ưu tiên 4 🟡 — VIETQR / NAPAS (xác minh Mục 1)
+
+| # | Truy vấn |
+|---|---|
+| 35 | `TCCS 03:2018/NHNNVN tiêu chuẩn QR code thanh toán` |
+| 36 | `VietQR cấu trúc TLV tag 38 GUID A000000727 QRIBFTTA` ⭐ |
+| 37 | `danh sách mã BIN ngân hàng VietQR NAPAS đầy đủ` ⭐ **(quan trọng — sai là mất tiền)** |
+| 38 | `VietQR nội dung chuyển khoản giới hạn ký tự tag 62 08` |
+| 39 | `CRC16 CCITT FALSE VietQR tính checksum` |
+| 40 | `Quyết định 2345/QĐ-NHNN xác thực sinh trắc học chuyển tiền 10 triệu` |
+| 41 | `VietQR.io API miễn phí giới hạn` |
+| 42 | `EMVCo QR merchant presented mode specification Vietnam` |
+
+## Ưu tiên 5 🟢 — THUẾ & HOÁ ĐƠN (xác minh Mục 6)
+
+| # | Truy vấn |
+|---|---|
+| 43 | `Nghị định 70/2025/NĐ-CP hóa đơn điện tử máy tính tiền hộ kinh doanh` |
+| 44 | `hộ kinh doanh doanh thu 1 tỷ hóa đơn điện tử khởi tạo từ máy tính tiền` |
+| 45 | `ngưỡng doanh thu 200 triệu miễn thuế GTGT hộ kinh doanh 2026` ⭐ |
+| 46 | `bỏ thuế khoán hộ kinh doanh 2026 kê khai` |
+| 47 | `lệ phí đăng ký hộ kinh doanh Đà Nẵng 2026` |
+| 48 | `hộ kinh doanh cho thuê tài sản thuế suất` |
+
+## Ưu tiên 6 🟢 — BNPL (xác minh Mục 7)
+
+| # | Truy vấn |
+|---|---|
+| 49 | `Fundiin phí merchant điều kiện đăng ký 2026` |
+| 50 | `Kredivo Việt Nam còn hoạt động 2026` |
+| 51 | `Home PayLater merchant đăng ký dịch vụ` |
+| 52 | `BNPL Việt Nam dùng cho dịch vụ cho thuê được không` |
+| 53 | `Vietnam BNPL market 2026 Fundiin Kredivo status` |
+
+---
+
+<a name="11"></a>
+# 11. DANH SÁCH ĐIỀU CHƯA BIẾT
+
+## 11.1. 🔴 Chưa biết — MỨC NGHIÊM TRỌNG (chặn quyết định)
+
+| # | Chưa biết | Ảnh hưởng |
+|---|---|---|
+| 1 | **Toàn bộ bảng giá** SePay/Casso/PayOS/Bizfly/WeOne (đ/tháng, hạn mức GD) | Không lập được dự toán GĐ 2 |
+| 2 | **Toàn bộ biểu phí %** của VNPay/MoMo/ZaloPay/OnePay/Payoo/Baokim | Không so sánh được phương án |
+| 3 | **Điều kiện đăng ký**: các dịch vụ trên có nhận **cá nhân** / **hộ kinh doanh** không | Nếu tất cả đều đòi pháp nhân doanh nghiệp thì GĐ 2 phải lùi lại |
+| 4 | **Số hiệu, ngày hiệu lực chính xác** của Nghị định 52/2024/NĐ-CP và các điều khoản định nghĩa TGTT | Nền tảng của Mục 5 |
+| 5 | **Mức vốn điều lệ tối thiểu** để được cấp phép TGTT | Chỉ để minh hoạ, không đổi kết luận |
+| 6 | **Số điều chính xác** của "ký cược" trong BLDS 2015 (ghi Điều 329, `[KT-TB]`) | Ảnh hưởng tính chính xác hợp đồng |
+| 7 | **Cơ chế kỹ thuật** của từng dịch vụ đối soát (API chính thức / đọc email / scraping) | Quyết định an toàn — xem Mục 2.2 |
+| 8 | **Danh sách BIN ngân hàng chính thức** | Sai = mất tiền |
+
+## 11.2. 🟡 Chưa biết — MỨC TRUNG BÌNH
+
+| # | Chưa biết |
+|---|---|
+| 9 | Cổng thanh toán VN nào hỗ trợ **pre-authorization hold** — *(đã trở thành câu hỏi thứ yếu, vì khách sinh viên không có thẻ tín dụng, xem Mục 4.2)* |
+| 10 | Thời gian thực tế **tiền về tay khách** sau refund theo từng phương thức |
+| 11 | Phí giao dịch gốc **có được hoàn** khi merchant refund không |
+| 12 | Ngân hàng cụ thể nào **miễn phí chuyển khoản ĐI** (quan trọng vì ExamLap hoàn cọc 400 lần/năm) |
+| 13 | Giới hạn ký tự thật của **nội dung chuyển khoản** ở từng ngân hàng |
+| 14 | Ngân hàng có **thêm tiền tố** vào nội dung CK không, dạng chuỗi cụ thể |
+| 15 | Ngưỡng **200 triệu đ/năm** và mốc **01/01/2026** — cần xác nhận |
+| 16 | **Ngưỡng 1 tỷ đ/năm** cho hoá đơn từ máy tính tiền — cần xác nhận, và **ngành cho thuê thiết bị có nằm trong danh mục ngành bị áp dụng không** |
+| 17 | Số hiệu **Nghị định 70/2025/NĐ-CP** |
+| 18 | Số hiệu và mức phạt của quy định cấm **cầm cố giấy tờ tuỳ thân** |
+| 19 | **Lệ phí đăng ký hộ kinh doanh** tại Đà Nẵng |
+| 20 | Trạng thái hoạt động hiện tại (09/2026) của **Fundiin, Kredivo VN, Home PayLater** |
+| 21 | Chuỗi **GUID `A000000727`** của VietQR |
+| 22 | Số hiệu **TCCS 03:2018/NHNNVN** |
+| 23 | Số hiệu và ngưỡng của **Quyết định 2345/QĐ-NHNN** |
+
+## 11.3. 🟢 Điều KHÔNG cần tra thêm — kết luận đã vững
+
+| # | Kết luận | Vì sao vững |
+|---|---|---|
+| 1 | **Chuyển khoản/QR/ví KHÔNG có cơ chế pre-auth hold** | Bản chất kỹ thuật của chuyển khoản, không phải vấn đề chính sách `[KT-C]` |
+| 2 | **Khách sinh viên không có thẻ tín dụng → pre-auth vô nghĩa với ExamLap** | Suy luận từ đặc điểm nhân khẩu học, không phụ thuộc dữ liệu ngoài `[SL]` |
+| 3 | **ExamLap thu tiền cho dịch vụ của chính mình → không phải TGTT** | Nguyên lý pháp lý cơ bản `[KT-C]` |
+| 4 | **Không được cho khách nạp tiền vào "ví ExamLap"** | Nguyên lý pháp lý cơ bản `[KT-C]` |
+| 5 | **BNPL không phù hợp** | Phân tích mô hình nghiệp vụ, không cần dữ liệu giá `[SL]` |
+| 6 | **Cổng thanh toán không đáng ở quy mô 400 lượt/năm** | Số học: phí % > giá trị tạo ra, và làm chậm hoàn cọc `[SL]` |
+| 7 | **Đối soát thủ công là đủ ở ~1,1 lượt/ngày** | Số học `[SL]` |
+| 8 | **Kiến trúc khuyến nghị tốn ~0 đ** | Từ các kết luận trên `[SL]` |
+
+---
+
+# PHỤ LỤC A — DANH SÁCH NGUỒN
+
+## A.1. Nguồn ĐÃ XÁC MINH `[XM]` (URL thật, kế thừa từ các file nghiên cứu cùng workflow)
+
+| Nguồn | URL |
+|---|---|
+| Stripe Docs — Extended authorization (pre-auth hold, thời hạn 7→28/30 ngày) | https://docs.stripe.com/payments/extended-authorization |
+| Stripe Docs — Terminal extended authorizations | https://docs.stripe.com/terminal/features/extended-authorizations |
+| Stripe — Preauthorization charges on credit cards | https://stripe.com/resources/more/preauthorization-charges-on-credit-cards-what-they-are-and-how-long-they-last |
+| Designing Idempotent Payment APIs | https://arpit.substack.com/p/designing-idempotent-payment-apis |
+| Idempotency in Payment APIs (Stripe/Omise/2C2P) | https://simplico.net/2026/04/04/idempotency-in-payment-apis-prevent-double-charges-with-stripe-omise-and-2c2p/ |
+| Thư viện pháp luật (cổng tra cứu văn bản) | https://thuvienphapluat.vn |
+
+## A.2. Nguồn nội bộ workflow (file anh em trong cùng thư mục)
+
+| File | Nội dung liên quan |
+|---|---|
+| `/home/user/doxuta/proposal-thue-laptop/research/02-nen-tang-cho-thue-quoc-te.md` | Mục 14.1 pre-auth Stripe; Turo giữ cọc 0–750 USD; R10 "không thể hold cọc trên thẻ ở VN" |
+| `/home/user/doxuta/proposal-thue-laptop/research/09-kien-truc-phan-mem-rental.md` | Thiết kế bảng `payment_events`, idempotency webhook (dòng ~761); kết luận "VietQR cho MVP" (dòng 1446) |
+| `/home/user/doxuta/proposal-thue-laptop/research/12-ux-tham-chieu.md` | Màn hình S14 đặt cọc; câu hỏi mở về pre-auth VN (dòng 333–335, 614) |
+| `/home/user/doxuta/proposal-thue-laptop/research/04-ekyc-viet-nam.md` | Định danh khách hàng, xử lý CCCD |
+| `/home/user/doxuta/proposal-thue-laptop/research/11-unit-economics.md` | Biên lợi nhuận để tính tác động phí cổng |
+| `/home/user/doxuta/proposal-thue-laptop/research/14-marketing-sinh-vien.md` | Kênh tiếp cận sinh viên |
+
+## A.3. ❌ Nguồn KHÔNG có
+
+**Không có URL nào cho:** SePay · Casso · PayOS · Bizfly · WeOne · VNPay · MoMo · ZaloPay · OnePay · Payoo · Baokim · NAPAS · VietQR.io · Fundiin · Kredivo · Home PayLater · Nghị định 52/2024/NĐ-CP · Nghị định 70/2025/NĐ-CP · Bộ luật Dân sự 2015.
+
+**Tài liệu này cố ý KHÔNG tạo link cho các nguồn trên**, vì mọi URL không do công cụ tìm kiếm trả về đều là URL bịa. Xem **Mục 10** để lấy truy vấn tìm kiếm chính xác.
+
+---
+
+# TÓM TẮT MỘT TRANG
+
+| Câu hỏi | Trả lời |
+|---|---|
+| **Sinh QR động thế nào?** | Tự sinh chuỗi TLV theo chuẩn EMV MPM: tag `01`=`12`, tag `54`=số tiền, tag `62`→`08`=mã đơn, tag `63`=CRC16-CCITT-FALSE. ~40 dòng code, **0 đ**. Code mẫu ở Mục 1.5 |
+| **Nhận webhook báo tiền về?** | **Chưa cần.** Ở 1,1 lượt/ngày, người trực nhìn app ngân hàng là đủ. Để dành cho GĐ 2 |
+| **Giá SePay/Casso/PayOS?** | 🔴 **KHÔNG CÓ DỮ LIỆU.** Dùng bảng câu hỏi Mục 2.4 để tự lấy báo giá |
+| **Phí cổng thanh toán?** | 🔴 **KHÔNG CÓ DỮ LIỆU.** Nhưng phân tích Mục 3.3 cho thấy **không nên dùng** ở quy mô này |
+| **VN có pre-auth hold không?** | Trên **chuyển khoản/QR/ví: KHÔNG** — bản chất kỹ thuật `[KT-C]`. Trên thẻ tín dụng quốc tế thì mạng thẻ có, nhưng **khách sinh viên không có thẻ tín dụng → không dùng được** |
+| **Vậy giữ cọc bằng gì?** | **Thu tiền ký cược thật qua VietQR, hoàn bằng chuyển khoản ngay tại quầy trước mặt khách.** Chi phí 0 đ, tức thì cả hai chiều |
+| ⭐ **Giữ tiền cọc có phải trung gian thanh toán không?** | 🟢 **KHÔNG** — thu tiền cho dịch vụ của chính mình là quan hệ dân sự song phương (**ký cược, Điều 329 BLDS 2015**), không phải dịch vụ thanh toán |
+| ⭐ **Vậy KHÔNG được làm gì?** | 🔴 Không cho khách **nạp tiền vào ví ExamLap** · Không **thu hộ/chi hộ** cho bên thứ ba · Không làm **escrow** giữ tiền giữa hai người khác · Không **trả lãi** trên tiền cọc · Không **tiêu vào tiền ký cược** · Không **giữ CCCD bản gốc** · Không **đưa mật khẩu Internet Banking** cho bên thứ ba |
+| **Có phải xuất hoá đơn điện tử không?** | Ở 82 tr/năm: **không thuộc diện bắt buộc** (ngưỡng máy tính tiền là 1 tỷ đ/năm) và **dưới ngưỡng chịu thuế 200 tr/năm** `[KT-TB]` — **phải xác nhận với Chi cục Thuế** |
+| **Dùng BNPL được không?** | ❌ **Không.** Sai mô hình nghiệp vụ (không xử lý được cọc hoàn lại), không onboard được, rủi ro hình ảnh |
+| ⭐ **Tổng chi phí thanh toán năm 1?** | **≈ 0 đồng** (+ lệ phí đăng ký hộ kinh doanh một lần) |
+
+> 🔴 **NHẮC LẠI LẦN CUỐI:** không một con số giá nào trong tài liệu này được xác minh. **Chạy Mục 10 trước khi đưa bất cứ thứ gì vào proposal.**
