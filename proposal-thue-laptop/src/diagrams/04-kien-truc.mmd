@@ -1,0 +1,39 @@
+flowchart TB
+  subgraph CLIENT[" NGƯỜI DÙNG "]
+    U1[Sinh viên<br/>trình duyệt di động]
+    U2[Nhân viên<br/>ứng dụng PWA]
+    U3[Quản trị viên<br/>trình duyệt máy tính]
+  end
+  CDN[CDN và tường lửa ứng dụng]
+  subgraph APP[" ỨNG DỤNG "]
+    WEB[Next.js<br/>giao diện]
+    API[API<br/>xác thực, phân quyền]
+    JOB[Tác vụ nền<br/>nhắc hạn, hoàn cọc]
+  end
+  subgraph DATA[" DỮ LIỆU "]
+    PG[(PostgreSQL)]
+    RD[(Redis)]
+    S3[(Kho ảnh)]
+  end
+  subgraph EXT[" DỊCH VỤ NGOÀI "]
+    PAY[Đối soát VietQR]
+    KYC[eKYC]
+    MDM[Máy chủ MDM]
+    MSG[Zalo và Email]
+  end
+  U1 --> CDN
+  U2 --> CDN
+  U3 --> CDN
+  CDN --> WEB --> API --> JOB
+  API --> PG
+  API --> RD
+  API --> S3
+  JOB --> PG
+  JOB --> MSG
+  API <--> PAY
+  API --> KYC
+  API <--> MDM
+  classDef ext fill:#FDF1E7,stroke:#C2411C,color:#7C2D12
+  classDef db  fill:#EAF6EE,stroke:#1E7A46,color:#14532D
+  class PAY,KYC,MDM,MSG ext
+  class PG,RD,S3 db
