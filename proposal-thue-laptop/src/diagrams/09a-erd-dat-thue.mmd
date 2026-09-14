@@ -1,0 +1,56 @@
+erDiagram
+  USERS ||--o| KYC_PROFILES : "có"
+  USERS ||--o{ ORDERS : "đặt"
+  DEVICE_MODELS ||--o{ INVENTORY_HOLDS : "bị giữ suất"
+  DEVICE_MODELS ||--o{ ORDERS : "được đặt theo"
+  EXAM_SLOTS ||--o{ ORDERS : "chứa"
+  EXAM_SLOTS ||--o{ INVENTORY_HOLDS : "áp dụng"
+  INVENTORY_HOLDS ||--o| ORDERS : "chuyển thành"
+
+  USERS {
+    uuid id PK
+    string role
+    string email_fpt UK
+    string student_code
+    string status
+    int trust_score
+  }
+  KYC_PROFILES {
+    uuid id PK
+    uuid user_id FK
+    string id_number_hash
+    bytes face_vector
+    float match_score
+    timestamp images_purge_at
+  }
+  DEVICE_MODELS {
+    uuid id PK
+    string name
+    string category
+    bool exam_ready
+    int replacement_value
+  }
+  EXAM_SLOTS {
+    uuid id PK
+    date exam_date
+    string name
+    timestamp pickup_at
+    timestamp return_due_at
+  }
+  INVENTORY_HOLDS {
+    uuid id PK
+    uuid model_id FK
+    uuid slot_id FK
+    uuid user_id FK
+    timestamp expires_at
+  }
+  ORDERS {
+    uuid id PK
+    string code UK
+    uuid user_id FK
+    uuid model_id FK
+    uuid slot_id FK
+    uuid device_id FK
+    string status
+    int deposit
+  }

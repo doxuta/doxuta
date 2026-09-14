@@ -1,0 +1,26 @@
+stateDiagram-v2
+  state "Nhập kho"        as D1
+  state "Đang chuẩn bị"   as D2
+  state "Sẵn sàng"        as D3
+  state "Đã bị giữ chỗ"   as D4
+  state "Đang cho thuê"   as D5
+  state "Chờ vệ sinh"     as D6
+  state "Bảo trì"         as D7
+  state "Mất máy"         as D8
+  state "Thanh lý"        as D9
+
+  [*] --> D1 : mua máy, dán tem tài sản, ghi sê-ri
+  D1 --> D2 : cài ảnh hệ điều hành chuẩn, MDM, BitLocker
+  D2 --> D3 : đạt đủ 12 mục kiểm tra chất lượng
+  D3 --> D4 : một đơn giữ chỗ
+  D4 --> D3 : đơn bị huỷ hoặc hết hạn giữ
+  D4 --> D5 : đã bàn giao cho khách
+  D5 --> D6 : khách trả máy
+  D6 --> D2 : xoá sạch dữ liệu, khôi phục ảnh gốc
+  D6 --> D7 : phát hiện lỗi khi kiểm tra
+  D3 --> D7 : pin dưới 80% hoặc tới kỳ bảo dưỡng
+  D7 --> D2 : sửa xong, kiểm tra lại
+  D7 --> D9 : chi phí sửa vượt 40% giá trị còn lại
+  D5 --> D8 : quá hạn 48 giờ, không liên lạc được
+  D8 --> D9 : ghi nhận tổn thất, xoá khỏi đội máy
+  D9 --> [*]

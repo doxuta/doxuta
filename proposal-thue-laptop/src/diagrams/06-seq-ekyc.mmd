@@ -1,0 +1,31 @@
+sequenceDiagram
+  autonumber
+  actor SV as Sinh viên
+  participant APP as Giao diện web
+  participant API as Máy chủ ứng dụng
+  participant KYC as Dịch vụ eKYC
+  participant EDU as Email @fpt.edu.vn
+  participant DB as PostgreSQL
+  participant S3 as Kho ảnh mã hoá
+
+  SV->>APP: Bắt đầu xác minh
+  APP->>SV: Yêu cầu chụp mặt trước CCCD
+  SV->>APP: Ảnh mặt trước
+  APP->>SV: Yêu cầu chụp mặt sau CCCD
+  SV->>APP: Ảnh mặt sau
+  APP->>SV: Yêu cầu quay video ngắn (quay trái, quay phải)
+  SV->>APP: Video liveness
+  APP->>API: POST /api/kyc/submit (ảnh + video)
+  API->>S3: Lưu ảnh đã mã hoá, đặt hạn xoá 90 ngày
+  API->>KYC: Gửi ảnh để OCR, kiểm giả mạo, so khớp khuôn mặt
+  KYC-->>API: {số CCCD, họ tên, ngày sinh, liveness 0.96, match 0.93}
+  alt Điểm so khớp >= 0.90 và liveness >= 0.90
+    API->>DB: Lưu hồ sơ: số CCCD đã băm, họ tên, vector khuôn mặt
+    API->>EDU: Gửi mã OTP tới email sinh viên
+    SV->>API: Nhập mã OTP
+    API->>DB: Đánh dấu "đã xác minh", gắn mã số sinh viên
+    API-->>SV: Xác minh thành công, mở quyền đặt máy
+  else Điểm thấp hoặc nghi ngờ giả mạo
+    API->>DB: Đưa vào hàng chờ duyệt tay
+    API-->>SV: Cần nhân viên kiểm tra, trả lời trong 30 phút
+  end
