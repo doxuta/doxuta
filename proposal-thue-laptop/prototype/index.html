@@ -1,0 +1,22 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<title>ExamLap — nguyên mẫu giao diện</title><link rel="stylesheet" href="app.css">
+<style>
+ body{padding:36px 28px;max-width:1120px;margin:0 auto}
+ h1{font-size:30px;margin-bottom:6px}
+ .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:24px}
+ .it{display:block;border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff;
+   box-shadow:var(--sh-sm);color:inherit}
+ .it b{display:block;color:var(--navy);font-size:15px;margin-bottom:4px}
+ .it span{font-size:12.5px;color:var(--muted);line-height:1.5}
+ .tag2{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+   padding:2px 8px;border-radius:999px;background:var(--blue-50);color:var(--blue);margin-bottom:9px}
+</style></head><body>
+<h1>ExamLap — nguyên mẫu giao diện</h1>
+<p class="lead" style="max-width:720px">Mười màn hình dựng bằng HTML tĩnh, dùng để chụp ảnh minh hoạ cho
+Chương 12 của bản proposal. Đây là <b>bản phác thảo thiết kế</b>, không phải một hệ thống đang chạy: các nút
+bấm không hoạt động và dữ liệu là dữ liệu mẫu.</p>
+<div class="grid">
+<a class="it" href="screens/01-landing.html"><span class="tag2">khách</span><b>Trang chủ</b><span>Định vị sản phẩm, ô kiểm tra máy trống theo ca thi, bốn bước sử dụng</span></a><a class="it" href="screens/02-catalog.html"><span class="tag2">khách</span><b>Danh sách máy trống</b><span>Bộ lọc theo ngày thi, ca thi, mục đích; hiển thị pin và thời điểm kiểm tra gần nhất</span></a><a class="it" href="screens/03-ekyc.html"><span class="tag2">khách</span><b>Xác minh danh tính</b><span>Sáu mục kiểm tra tự động, và bảng nói rõ dữ liệu nào được lưu, dữ liệu nào không</span></a><a class="it" href="screens/04-payment.html"><span class="tag2">khách</span><b>Đặt cọc và thanh toán</b><span>Mã VietQR động, cơ chế cọc, biểu phí khấu trừ, ba điều khoản phải đồng ý</span></a><a class="it" href="screens/05-pass.html"><span class="tag2">khách</span><b>Vé nhận máy</b><span>Mã QR bàn giao, danh mục máy đã được chuẩn bị, tiến trình đơn thuê</span></a><a class="it" href="screens/06-staff.html"><span class="tag2">nhân viên</span><b>Bàn giao máy</b><span>Ứng dụng trên điện thoại: đối chiếu khách, bảy mục kiểm tra, ký điện tử</span></a><a class="it" href="screens/07-dashboard.html"><span class="tag2">quản trị</span><b>Bảng điều khiển vận hành</b><span>Bốn chỉ số chính, đơn thuê trong ngày, lịch khai thác bảy ngày, cảnh báo</span></a><a class="it" href="screens/08-inventory.html"><span class="tag2">quản trị</span><b>Kho máy</b><span>Mười thiết bị, trạng thái, sức khoẻ pin, thời điểm thiết bị báo về gần nhất</span></a><a class="it" href="screens/09-order.html"><span class="tag2">quản trị</span><b>Chi tiết đơn thuê</b><span>Vòng đời đơn, nhật ký sự kiện, ảnh hiện trạng, thao tác nhạy cảm</span></a><a class="it" href="screens/10-report.html"><span class="tag2">quản trị</span><b>Báo cáo kinh doanh</b><span>Doanh thu theo tháng, tỉ lệ khai thác theo dòng máy, nguồn đơn</span></a></div>
+<p class="sub" style="margin-top:28px">Sinh lại toàn bộ màn hình: <code>python3 gen.py</code>.
+Bốn biểu đồ tài chính nằm trong <code>figures/</code>, sinh bằng <code>python3 charts.py</code>.</p>
+</body></html>

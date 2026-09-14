@@ -31,7 +31,7 @@ npm i -g @mermaid-js/mermaid-cli
 apt-get install -y libreoffice-writer poppler-utils
 
 python3 src/build_diagrams.py                 # sơ đồ Mermaid -> PNG
-python3 prototype/gen.py && python3 prototype/charts.py && python3 prototype/figs.py
+python3 prototype/gen.py && python3 prototype/charts.py
 python3 src/finmodel.py                       # xem mô hình tài chính
 python3 src/collect_sources.py                # gom danh mục nguồn
 cd src && python3 render.py ../content/proposal.md Proposal-ExamLap

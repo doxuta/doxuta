@@ -22,6 +22,63 @@ ExamLap không làm sàn trung gian nối sinh viên có máy nhàn rỗi với 
 ExamLap cũng không bán máy, không cho vay, không nhận cầm cố tài sản. Ba việc này thuộc các khung pháp lý khác hẳn, xem phần cuối chương.
 :::
 
+## Ai là người cho thuê: tự sở hữu đội máy hay làm sàn trung gian
+
+Có một câu hỏi phải trả lời dứt khoát trước khi bàn bất cứ điều gì khác về vận hành: **chiếc máy giao cho
+sinh viên là của ai?** Ba lời đáp khả dĩ dẫn tới ba doanh nghiệp hoàn toàn khác nhau.
+
+| | **A. Tự sở hữu đội máy** | **B. Sàn ngang hàng** | **C. Mô hình lai** |
+|---|---|---|---|
+| Máy thuộc về | ExamLap | Sinh viên khác có máy rảnh | ExamLap sở hữu lõi, huy động thêm khi cao điểm |
+| Doanh thu của nhóm | Toàn bộ phí thuê | Hoa hồng 15–25% trên mỗi giao dịch | Cả hai |
+| Vốn ban đầu | 93.250.000đ | Gần bằng không | 93.250.000đ |
+| Chuẩn hoá được máy thi | Có, hoàn toàn | **Không** | Chỉ với phần máy của nhóm |
+| Ai chịu khi máy hỏng | ExamLap | Tranh chấp giữa hai sinh viên | Tuỳ chiếc máy, rất rối |
+| Giữ tiền của người khác | Không | **Có** — kéo theo vấn đề giấy phép | Có |
+| Nguồn cung lúc cao điểm | Ổn định | **Cạn đúng lúc cần nhất** | Ổn định phần lõi |
+{caption: Ba cách trả lời câu hỏi "ai là người cho thuê", đặt cạnh nhau theo bảy tiêu chí quyết định.}
+{widths: 3,3.5,3.5,3.5}
+
+Nhóm chọn **phương án A** cho giai đoạn đầu. Bốn lý do, xếp theo mức độ quyết định.
+
+**Thứ nhất, sản phẩm không cho phép.** Thứ ExamLap bán không phải "một chiếc laptop" mà là "một chiếc máy
+đã sẵn sàng thi": Windows bản quyền, EOS Client nằm đúng thư mục, Safe Exam Browser đúng phiên bản, đã chạy
+thử, có jack 3.5mm. Máy của một sinh viên khác là một chiếc máy đã cài đủ thứ, có tài khoản cá nhân, có dữ
+liệu riêng, và chưa ai kiểm tra nó chạy được phần mềm thi hay không. Giao một chiếc máy như vậy vào sáng
+ngày thi là bán lại đúng cái rủi ro mà khách đang muốn thoát khỏi. Cam kết cốt lõi của dịch vụ sẽ sụp ngay
+ở mệnh đề đầu tiên.
+
+**Thứ hai, nguồn cung cạn đúng lúc cần nhất.** Đây là lý do mang tính cấu trúc và không sửa được bằng cách
+làm tốt hơn. Nhu cầu thuê dồn vào tuần thi cuối kỳ. Nhưng tuần thi cuối kỳ cũng chính là lúc **mọi sinh
+viên khác đều cần máy của họ để đi thi**. Cung và cầu trong mô hình ngang hàng ở đây tương quan dương gần
+như tuyệt đối: đúng ngày có trăm người cần thuê thì cũng là ngày không ai rảnh máy để cho thuê. Một sàn
+ngang hàng hoạt động được khi cung và cầu lệch pha nhau, như xe hơi đỗ không trong tuần hay máy ảnh nằm
+trong tủ mười một tháng mỗi năm. Laptop trong tuần thi thì ngược lại.
+
+**Thứ ba, trách nhiệm không quy được về ai.** Khi chiếc máy đi thuê bị hỏng màn hình, mô hình A có một câu
+trả lời rõ ràng: ExamLap chịu, rồi thu của khách theo biểu phí đã công bố ở Phụ lục B. Mô hình B thì đặt hai
+sinh viên vào một tranh chấp về một khoản tiền lớn so với túi tiền cả hai, với nhóm đứng giữa trong vai trò
+không có thẩm quyền phán xử và không có tiền để bảo lãnh. Các sàn ngang hàng quốc tế giải bài này bằng quỹ
+bảo hiểm và đội xử lý khiếu nại, những thứ nằm ngoài tầm của một nhóm sinh viên ở năm đầu.
+
+**Thứ tư, giữ tiền hộ người khác là một việc có điều kiện.** Trong mô hình B, nhóm thu tiền của người thuê
+rồi trả lại cho chủ máy sau khi trừ hoa hồng. Đó là giữ tiền của bên thứ ba, và như phân tích ở Chương 17,
+đây là vùng có ràng buộc pháp lý mà một hộ kinh doanh không đáp ứng được. Mô hình A không có vấn đề này:
+tiền khách trả là doanh thu của chính nhóm, tiền cọc là khoản bảo đảm trong một hợp đồng thuê tài sản hai bên.
+
+:::note Khi nào mô hình lai trở nên hợp lý
+Phương án C không sai, nó chỉ sai thời điểm. Nó trở nên đáng làm khi ba điều kiện cùng đúng: đội máy của
+nhóm đã chạm trần công suất trong tuần thi ba kỳ liên tiếp; nhóm đã có pháp nhân đủ điều kiện xử lý dòng
+tiền hộ người khác; và nhóm đã có quy trình kiểm tra máy đủ chặt để **nhận máy của người ngoài vào kho, tự
+cài lại ảnh hệ điều hành chuẩn, rồi mới cho thuê** — tức là chủ máy góp phần cứng, còn phần "sẵn sàng thi"
+vẫn do nhóm làm. Ở dạng đó, chủ máy trở thành nhà cung cấp vốn thiết bị chứ không phải người cho thuê, và
+cam kết chất lượng vẫn nguyên vẹn. Đây là hướng mở rộng được nêu lại ở Chương 18.
+:::
+
+Vì vậy, trong toàn bộ tài liệu này, **"người cho thuê" luôn là ExamLap**, và hợp đồng luôn là hợp đồng hai
+bên giữa ExamLap và sinh viên thuê máy. Vai trò "đối tác cung ứng" xuất hiện ở Chương 5 là các cửa hàng
+laptop cũ bán máy và bảo hành cho nhóm, không phải bên cho thuê.
+
 ## Bảng giá và lý do đằng sau từng con số
 
 {{T-GIA}}
