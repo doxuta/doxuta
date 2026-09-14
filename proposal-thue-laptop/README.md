@@ -7,8 +7,8 @@ và mô hình tài chính đều được sinh ra từ mã nguồn trong thư m�
 
 | File | Nội dung |
 |---|---|
-| `dist/Proposal-ExamLap.docx` | Bản Word — 277 trang, mục lục và danh mục hình/bảng có số trang thật |
-| `dist/Proposal-ExamLap.pdf` | Bản PDF xuất từ chính file Word đó |
+| `dist/Proposal-ExamLap-ban-ngan.docx` · `.pdf` | **Bản rút gọn — 49 trang.** 10 chương + 3 phụ lục. Đây là bản để nộp và trình bày |
+| `dist/Proposal-ExamLap.docx` · `.pdf` | **Bản đầy đủ — 277 trang.** 19 chương + 6 phụ lục, nộp kèm làm phụ lục tra cứu |
 
 19 chương, 6 phụ lục, 94.000 chữ, 744 lần trích dẫn tới 279 nguồn, 27 hình và 39 trang ngang
 cho các sơ đồ rộng.
@@ -17,7 +17,7 @@ cho các sơ đồ rộng.
 
 | Thư mục | Nội dung |
 |---|---|
-| `content/` | Nội dung tài liệu. `proposal.md` là file gốc, các chương nằm trong `sections/` |
+| `content/` | Nội dung tài liệu. `proposal.md` và `proposal-ngan.md` là hai file gốc; các chương nằm trong `sections/` và `short/` |
 | `content/facts.md` | Hồ sơ dữ kiện chuẩn — mọi con số trong bài phải khớp file này |
 | `content/styleguide.md` | Quy tắc viết và cú pháp soạn thảo |
 | `research/` | Toàn bộ ghi chép nghiên cứu nền, kèm đường dẫn nguồn |
@@ -39,7 +39,9 @@ python3 src/finmodel.py                       # xem mô hình tài chính
 python3 src/collect_sources.py                # gom danh mục nguồn
 python3 src/validate.py                       # kiểm tra hình, cú pháp, URL trích dẫn
 python3 src/check_numbers.py                  # đối chiếu con số với mô hình tài chính
-cd src && python3 render.py ../content/proposal.md Proposal-ExamLap
+cd src
+python3 render.py ../content/proposal.md Proposal-ExamLap                                # bản đầy đủ
+python3 render.py ../content/proposal-ngan.md Proposal-ExamLap-ban-ngan meta-ngan.json   # bản rút gọn
 ```
 
 `render.py` chạy hai lượt: lượt đầu đo số trang thật của từng đề mục trong PDF, lượt sau ghi số trang đó

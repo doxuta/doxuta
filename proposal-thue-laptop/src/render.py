@@ -349,7 +349,8 @@ def main():
     src = src.replace("<<<references>>>", refmod.bibliography_md(bib)
                       + "\n{caption: Danh mục tài liệu tham khảo, đánh số theo thứ tự xuất hiện trong bài}"
                       + "\n{widths: 0.6,7,3.2}\n{fs: 9}")
-    meta = json.load(open(os.path.join(ROOT, "content", "meta.json"), encoding="utf-8"))
+    meta_name = sys.argv[3] if len(sys.argv) > 3 else "meta.json"
+    meta = json.load(open(os.path.join(ROOT, "content", meta_name), encoding="utf-8"))
     blocks = parse(src)
     print("khối nội dung: %d" % len(blocks))
 
