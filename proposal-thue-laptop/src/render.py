@@ -8,7 +8,7 @@ import os, re, sys, json, subprocess, shutil
 from docx import Document
 import mdx
 import refs as refmod
-from mdx import Builder, setup, running_head, cover, toc, new_section, part_divider, muc_luc_phu
+from mdx import Builder, setup, running_head, cover, toc, new_section, part_divider, muc_luc_phu, thuoc_tinh
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOFFICE = "soffice"
@@ -229,6 +229,7 @@ def build(blocks, meta, out_docx, page_map=None, body_pt=11.5):
             b.code(txt, caption=cap)
 
     running_head(doc, meta["running"])
+    thuoc_tinh(doc, meta)
     doc.save(out_docx)
     return b, toc_entries
 

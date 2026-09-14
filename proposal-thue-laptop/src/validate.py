@@ -14,6 +14,13 @@ def urls_trong_nghien_cuu():
             tap.add(u.rstrip(").,;:'\"").rstrip("/"))
     return tap
 
+# Các cổng chính thống được phép dẫn như "nơi để tra cứu", không cần có trong kho nghiên cứu
+CHO_PHEP = {
+    "https://vbpl.moj.gov.vn", "https://thuvienphapluat.vn", "https://chinhphu.vn",
+    "https://dichvucong.gov.vn", "https://exam.fpt.edu.vn", "https://fap.fpt.edu.vn",
+}
+
+
 def chuan(u):
     return u.rstrip(").,;:'\"").rstrip("/")
 
@@ -44,7 +51,7 @@ def kiem_tra(path, known):
 
     # 4) URL trích dẫn có thật trong nghiên cứu không
     refs = re.findall(r"\[\[ref:\s*(https?://[^\]\|\s]+)", txt)
-    la = [u for u in refs if chuan(u) not in known]
+    la = [u for u in refs if chuan(u) not in known and chuan(u) not in CHO_PHEP]
     for u in sorted(set(la)):
         canh.append(f"URL không thấy trong file nghiên cứu: {u}")
 

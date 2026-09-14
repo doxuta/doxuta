@@ -9,6 +9,12 @@
 
 <<<pagebreak>>>
 
+#! Cách đọc tài liệu này
+
+<<<include:sections/00-cach-doc.md>>>
+
+<<<pagebreak>>>
+
 #! Ghi chú về phương pháp và độ tin cậy của dữ liệu
 
 <<<include:sections/00-phuong-phap.md>>>

@@ -189,10 +189,29 @@ def setup(doc, body_pt=12.0):
         sec.left_margin = Cm(2.6); sec.right_margin = Cm(2.0)
         sec.header_distance = Cm(1.2); sec.footer_distance = Cm(1.2)
 
+    # ngôn ngữ mặc định: tiếng Việt (để Word không gạch đỏ toàn bộ)
+    st_norm = doc.styles["Normal"].element.get_or_add_rPr()
+    lang = OxmlElement("w:lang")
+    lang.set(qn("w:val"), "vi-VN"); lang.set(qn("w:eastAsia"), "vi-VN"); lang.set(qn("w:bidi"), "ar-SA")
+    st_norm.append(lang)
+
     # bật cập nhật trường khi mở bằng Word
     s = doc.settings.element
     uf = OxmlElement("w:updateFields"); uf.set(qn("w:val"), "true")
     s.append(uf)
+    return doc
+
+
+def thuoc_tinh(doc, meta):
+    """Điền thuộc tính tài liệu để Word và trình đọc PDF hiển thị đúng."""
+    cp = doc.core_properties
+    cp.title = "%s — %s" % (meta.get("title", ""), meta.get("subtitle", ""))
+    cp.subject = meta.get("kicker", "")
+    cp.author = meta.get("org", "")
+    cp.category = "Đề xuất dự án khởi nghiệp"
+    cp.comments = meta.get("tagline", "")
+    cp.keywords = "cho thuê laptop; kỳ thi; Đại học FPT Đà Nẵng; khởi nghiệp; ExamLap"
+    cp.language = "vi-VN"
     return doc
 
 

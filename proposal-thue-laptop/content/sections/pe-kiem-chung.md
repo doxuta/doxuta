@@ -14,12 +14,13 @@ này đang dựa vào giả định chứ không dựa vào dữ liệu. Cột c
 | E8 | Giá và điều kiện thuê thật của các đối thủ tại Đà Nẵng | Sai định vị giá | Gọi điện hỏi giá 5 đơn vị với vai khách hàng, ghi lại | Thành viên 3 | Tuần 2 |
 | E9 | Chi phí sửa chữa thực tế các lỗi phổ biến theo dòng máy dự kiến mua | Sai quỹ dự phòng rủi ro | Hỏi báo giá 3 tiệm sửa tại Đà Nẵng | Thành viên 4 | Tuần 3 |
 | E10 | Phường Hoà Hải thuộc vùng lương tối thiểu nào | Sai chi phí nhân công, có rủi ro tuân thủ | Tra danh mục địa bàn kèm nghị định lương tối thiểu vùng | Thành viên 2 | Tuần 3 |
-| E11 | Điều kiện thật để một hộ kinh doanh dùng dịch vụ đối soát biến động số dư tài khoản | Ảnh hưởng thiết kế luồng thanh toán | Đăng ký thử một tài khoản dùng thử và đọc điều khoản | Thành viên 1 | Tuần 3 |
+| E11 | **Bảng giá và điều kiện đăng ký của các dịch vụ đối soát biến động số dư** (SePay, Casso, PayOS…) và biểu phí của các cổng thanh toán | Sai chi phí vận hành; nếu tất cả đều đòi pháp nhân doanh nghiệp thì phải lùi kế hoạch | Nhóm **chưa tra cứu được bất kỳ con số giá nào** cho mục này. Phải mở trang giá của từng nhà cung cấp, đăng ký thử một tài khoản và đọc điều khoản | Thành viên 1 | Tuần 3 |
 | E12 | Chi phí thật của dịch vụ xác minh danh tính điện tử ở quy mô vài trăm lượt một năm | Sai chi phí biến đổi | Xin báo giá từ ít nhất 2 nhà cung cấp | Thành viên 1 | Tuần 3 |
+| E16 | Số hiệu và ngày hiệu lực chính xác của các văn bản pháp luật được dẫn trong Chương 17 | Dẫn sai văn bản làm mất giá trị cả lập luận pháp lý | Tra nguyên văn trên cổng văn bản quy phạm pháp luật; nhờ giảng viên môn Luật của trường đọc lại | Trưởng nhóm | Tuần 2 |
 | E13 | Nhà trường có cho phép đặt điểm nhận máy trong khuôn viên hay không | Ảnh hưởng cam kết giao trước 30 phút | Làm việc với Phòng Công tác sinh viên hoặc một câu lạc bộ có sẵn không gian | Trưởng nhóm | Tuần 3 |
 | E14 | Tỉ lệ khách chấp nhận mua phí miễn trừ thiệt hại | Sai một nguồn doanh thu biên cao | Câu 14 trong khảo sát; sau đó đo bằng dữ liệu thật sau 50 lượt đầu | Cả nhóm | Tuần 2 và sau khi chạy thử |
 | E15 | Sinh viên có chấp nhận quét căn cước và ảnh khuôn mặt hay không | Ảnh hưởng toàn bộ thiết kế xác minh | Câu 12 và 13 trong khảo sát | Cả nhóm | Tuần 2 |
-{caption: Mười lăm điểm cần kiểm chứng, sắp theo mức độ ảnh hưởng tới quyết định đầu tư.}
+{caption: Mười sáu điểm cần kiểm chứng, sắp theo mức độ ảnh hưởng tới quyết định đầu tư.}
 {widths: 0.5,4.2,3,4.6,1.8,1}
 
 :::risk Hai điểm chặn
@@ -27,6 +28,13 @@ này đang dựa vào giả định chứ không dựa vào dữ liệu. Cột c
 quy chế thi không cho phép dùng máy thuê, thì mô hình này không nên được triển khai dưới hình thức hiện tại.
 Cả hai câu hỏi đều trả lời được trong một tuần bằng hai cuộc hẹn. Nhóm sẽ làm việc đó trước khi làm bất cứ
 việc gì khác.
+:::
+
+:::warn Một khoảng trống nhóm nói thẳng
+Trong đợt nghiên cứu này, nhóm **không tra cứu được một con số giá nào** của các dịch vụ đối soát thanh toán
+và các cổng thanh toán tại Việt Nam. Khoản 450.000đ mỗi tháng trong bảng định phí ở Chương 15 vì vậy là
+**ước lượng gộp** cho máy chủ, tên miền và dịch vụ đối soát, chưa phải báo giá thật. Đây là lý do E11 nằm
+trong danh sách này thay vì được viết như một con số chắc chắn trong bảng tài chính.
 :::
 
 :::note Nguyên tắc chi tiêu theo cổng

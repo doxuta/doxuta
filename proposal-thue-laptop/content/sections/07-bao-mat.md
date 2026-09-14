@@ -15,18 +15,18 @@ trọn về phía bên tích hợp, tức là về phía ExamLap [[ref:https://p
 
 **Loại thứ hai là dữ liệu do chính khách tạo ra trên máy thuê.** Gồm bài làm, tệp tài liệu, phiên đăng nhập
 Gmail hay Facebook, mật khẩu trình duyệt tự lưu, lịch sử duyệt web. Loại này không phải tài sản của ExamLap
-và nhóm không có quyền đọc nó. Chế độ xử lý ngược hẳn: không thu thập, không sao lưu, không nhìn vào, và
-xoá sạch trước khi máy sang tay người tiếp theo. Cam kết này đã được viết thành điều khoản hợp đồng: phần
-mềm quản lý thiết bị trên máy không đọc nội dung tệp, không ghi thao tác bàn phím, không chụp màn hình và
-không truy cập camera (Phụ lục C, Điều 6). Ngay cả trong tình huống xấu nhất là khách quá hạn không trả máy,
-lệnh cưỡng chế duy nhất nhóm dùng là khoá màn hình, không phải xoá dữ liệu (Phụ lục B, mục B.4).
+và nhóm không có quyền đọc nó. Chế độ xử lý ngược hẳn: không thu thập, không sao lưu, không nhìn vào, và xoá
+sạch trước khi máy sang tay người tiếp theo. Cam kết này đã thành điều khoản hợp đồng: phần mềm quản lý thiết
+bị trên máy không đọc nội dung tệp, không ghi thao tác bàn phím, không chụp màn hình và không truy cập camera
+(Phụ lục C, Điều 6). Ngay cả khi khách quá hạn không trả máy, lệnh cưỡng chế duy nhất nhóm dùng là khoá màn
+hình, không phải xoá dữ liệu (Phụ lục B, mục B.4).
 
-Có một lý do kỹ thuật khiến việc tự giới hạn này dễ giữ hơn người ta tưởng: nền tảng Windows vốn không cho
-khoá máy từ xa qua MDM. Danh sách nền tảng hỗ trợ lệnh khoá từ xa của Microsoft Intune chỉ gồm Android,
-iOS/iPadOS, macOS và visionOS, hoàn toàn không có Windows [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-management/actions/remote-lock.md]].
+Việc tự giới hạn này dễ giữ hơn người ta tưởng, vì nền tảng Windows vốn không cho khoá máy từ xa qua MDM:
+danh sách nền tảng hỗ trợ lệnh khoá từ xa của Microsoft Intune chỉ gồm Android, iOS/iPadOS, macOS và
+visionOS [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-management/actions/remote-lock.md]].
 Nhóm vì vậy dùng một tác nhân chống trộm riêng có hành động khoá và báo động [[ref:https://github.com/prey/prey-node-client]],
 và chấp nhận rằng khả năng can thiệp từ xa của mình là hẹp. Một hệ thống có ít quyền lực hơn thì cũng ít
-cách lạm quyền hơn, và điều đó dễ giải thích với khách hơn nhiều so với một danh sách tính năng dài.
+cách lạm quyền hơn.
 
 ## Ranh giới tin cậy của hệ thống
 
@@ -39,10 +39,9 @@ cách lạm quyền hơn, và điều đó dễ giải thích với khách hơn 
 Hình trên chia hệ thống thành bốn vùng, xếp theo mức độ tin cậy tăng dần từ trái sang phải.
 
 **Vùng một, không tin cậy.** Gồm trình duyệt của sinh viên, điện thoại của nhân viên giao nhận, và chiếc
-laptop đang nằm ngoài kho trong tay khách. Nguyên tắc là không tin bất cứ dữ liệu nào từ vùng này, kể cả
-dữ liệu do chính ứng dụng của nhóm gửi lên. Mọi kiểm tra nghiệp vụ đều lặp lại ở phía máy chủ. Chiếc laptop
-đang cho thuê chỉ được phép đẩy lên đúng một thứ: tín hiệu báo còn sống và trạng thái máy, không phải nội
-dung gì trên ổ đĩa.
+laptop đang nằm ngoài kho. Không tin bất cứ dữ liệu nào từ vùng này, kể cả dữ liệu do chính ứng dụng của
+nhóm gửi lên; mọi kiểm tra nghiệp vụ đều lặp lại ở phía máy chủ. Chiếc laptop đang cho thuê chỉ được phép
+đẩy lên đúng một thứ là tín hiệu báo còn sống và trạng thái máy, không phải nội dung gì trên ổ đĩa.
 
 **Vùng hai, lớp biên.** Chỉ có ba việc: bắt buộc HTTPS, giới hạn tần suất gọi, và kiểm chữ ký HMAC của
 webhook trước khi tin bất cứ điều gì trong nội dung. Quy tắc thứ ba là quan trọng nhất với luồng tiền, vì
@@ -51,8 +50,10 @@ webhook ở quy mô lớn nhấn mạnh việc ký nội dung và kiểm chữ k
 thử lại và hàng đợi lỗi [[ref:https://matheuspalma.com/blog/outbound-webhook-delivery-signing-retries-dead-letters]] [[ref:https://www.educative.io/blog/webhook-system-design]].
 
 **Vùng ba, ứng dụng.** Ba lớp lọc xếp chồng: phân quyền theo vai trò, quy tắc nghiệp vụ của máy trạng thái
-đơn thuê, và nhật ký kiểm toán chỉ ghi thêm. Một yêu cầu hợp lệ về chữ ký vẫn có thể bị chặn ở đây nếu nó
-đòi chuyển đơn sang một trạng thái mà máy trạng thái không cho phép.
+đơn thuê, và nhật ký chỉ ghi thêm được chặn ở cả tầng ứng dụng lẫn tầng cơ sở dữ liệu
+[[ref:https://www.designgurus.io/answers/detail/how-do-you-enforce-immutability-and-appendonly-audit-trails]].
+Một yêu cầu hợp lệ về chữ ký vẫn bị chặn ở đây nếu nó đòi chuyển đơn sang trạng thái mà máy trạng thái không
+cho phép.
 
 **Vùng bốn, dữ liệu nhạy cảm.** Gồm số căn cước đã băm, ảnh eKYC có hạn xoá, vector đặc trưng khuôn mặt và
 nhật ký của máy chủ quản lý thiết bị. Vùng này không có đường đi trực tiếp từ vùng một. Mọi truy cập đều
@@ -106,27 +107,31 @@ rất dễ bị bỏ qua trong một đồ án, nhưng một dịch vụ có thu
 ## Nguyên tắc tối thiểu hoá và thời hạn xoá
 
 Nguyên tắc tối thiểu hoá dễ viết vào slide và rất khó giữ khi vận hành, vì áp lực luôn đẩy về phía "cứ lưu
-thêm, biết đâu sau này cần". Nhóm chống lại áp lực đó bằng ba cơ chế kỹ thuật thay vì bằng lời hứa.
+thêm, biết đâu sau này cần". Nhóm chống lại bằng ba cơ chế kỹ thuật thay vì bằng lời hứa.
 
 **Thứ nhất, hạn xoá là một cột trong cơ sở dữ liệu, không phải một dòng trong chính sách.** Mỗi hồ sơ xác
 minh mang cột `images_purge_at`, đặt bằng ngày kết thúc lượt thuê cuối cộng 90 ngày. Mỗi bộ ảnh hiện trạng
 mang hạn 12 tháng. Một tác vụ nền chạy hằng đêm quét các bản ghi quá hạn, xoá tệp trong kho ảnh, rồi ghi
-một bản ghi kiểm toán nói rõ đã xoá cái gì vào lúc nào mà không giữ lại nội dung đã xoá.
+một bản ghi kiểm toán nói rõ đã xoá cái gì vào lúc nào mà không giữ lại nội dung đã xoá. Bộ ba mã hoá khi
+lưu, hạn xoá tự động và nhật ký truy cập chính là điều kiện tối thiểu mà các dự án xử lý dữ liệu giấy tờ tuỳ
+thân tự đặt ra cho mình [[ref:https://github.com/huyhuynh1905/flutter-cccd-nfc-reader]], và cũng là phần mà
+tài liệu của các bộ công cụ eKYC thương mại đẩy hoàn toàn về phía bên tích hợp [[ref:https://pub.dev/packages/finos_ekyc_flutter]].
 
-**Thứ hai, việc xoá đi qua bảng hàng đợi có thể thử lại.** Lý do là xoá tệp trên kho ảnh là một thao tác với
-dịch vụ bên ngoài, có thể thất bại giữa chừng, và nếu chỉ gọi trực tiếp trong giao dịch cơ sở dữ liệu thì
-hoặc là xoá rồi mà bản ghi vẫn còn, hoặc là bản ghi mất mà tệp vẫn nằm đó. Mẫu hộp thư đi ghi việc cần làm
-vào một bảng trong cùng giao dịch với dữ liệu nghiệp vụ, rồi một tiến trình nền đọc bảng đó và thực thi, là
-cách xử lý chuẩn cho đúng bài toán này [[ref:https://milanjovanovic.tech/blog/implementing-the-outbox-pattern]].
-Hệ quả thực tế: một lần xoá thất bại sẽ được thử lại chứ không im lặng biến mất.
+**Thứ hai, việc xoá đi qua bảng hàng đợi có thể thử lại.** Xoá tệp trên kho ảnh là thao tác với dịch vụ bên
+ngoài, có thể thất bại giữa chừng; nếu gọi trực tiếp trong giao dịch cơ sở dữ liệu thì hoặc là xoá rồi mà
+bản ghi vẫn còn, hoặc là bản ghi mất mà tệp vẫn nằm đó. Mẫu hộp thư đi ghi việc cần làm vào một bảng trong
+cùng giao dịch với dữ liệu nghiệp vụ, rồi một tiến trình nền đọc bảng đó và thực thi, là cách xử lý chuẩn cho
+bài toán này [[ref:https://milanjovanovic.tech/blog/implementing-the-outbox-pattern]]. Hệ quả thực tế: một
+lần xoá thất bại sẽ được thử lại chứ không im lặng biến mất.
 
-**Thứ ba, có kiểm tra định kỳ chứng minh việc xoá đã xảy ra.** Mỗi tháng nhóm chạy một truy vấn đối chiếu:
-liệt kê mọi hồ sơ có `images_purge_at` đã qua mà vẫn còn tệp trong kho ảnh. Kết quả phải bằng không. Con số
-này được đưa vào báo cáo vận hành hằng tháng cùng với số lượt thuê và tỉ lệ khai thác. Một chính sách xoá
-không có phép đo thì không phân biệt được với một chính sách xoá không được thực thi.
+**Thứ ba, có phép đo định kỳ chứng minh việc xoá đã xảy ra.** Mỗi tháng nhóm chạy một truy vấn liệt kê mọi
+hồ sơ có `images_purge_at` đã qua mà vẫn còn tệp trong kho ảnh; kết quả phải bằng không, và con số này nằm
+trong báo cáo vận hành hằng tháng. Một chính sách xoá không có phép đo thì không phân biệt được với một
+chính sách xoá không được thực thi.
 
 Nhật ký kiểm toán là ngoại lệ có chủ ý: nó được giữ lâu hơn mọi loại dữ liệu khác, vì đó là thứ duy nhất
-chứng minh được ai đã làm gì khi có tranh chấp. Nhưng sau 24 tháng, các trường nhận dạng trong nhật ký được
+chứng minh được ai đã làm gì khi có tranh chấp, và vì bản thân nó phải là một chuỗi liền mạch mới có giá trị
+làm bằng chứng [[ref:https://dev.to/codemalasartes/an-immutable-audit-trail-for-ai-agent-actions-fastapi-async-sqlalchemy-4m4c]]. Nhưng sau 24 tháng, các trường nhận dạng trong nhật ký được
 thay bằng mã ẩn danh, giữ lại chuỗi sự kiện mà bỏ đi khả năng quy về một con người cụ thể. Tính bất biến của
 nhật ký là nền tảng của chuỗi bảo quản bằng chứng [[ref:https://www.locatorx.com/blog/the-truth-about-asset-records-why-immutability-is-the-foundation-of-a-verifiable-chain-of-custody]],
 và việc ẩn danh hoá về sau là cách giữ được tính bất biến mà không giữ dữ liệu cá nhân vô thời hạn.
@@ -171,8 +176,8 @@ giao diện.
 
 Đây là cam kết bán hàng, nên nó phải chứng minh được. Một sinh viên đăng nhập Gmail, Facebook và ứng dụng
 ngân hàng trên máy thuê; nếu người thuê kế tiếp khôi phục được những thứ đó thì dịch vụ chấm dứt trong một
-cộng đồng khép kín như một khu ký túc xá. Các nền tảng cho thuê thiết bị lớn đặt xoá dữ liệu thành một bước
-riêng trong quy trình tân trang, không phải một việc làm kèm [[ref:https://www.grover.com/at-en/g-about/asset-condition]].
+cộng đồng khép kín như khu ký túc xá. Các nền tảng cho thuê thiết bị lớn đặt xoá dữ liệu thành một bước riêng
+trong quy trình tân trang, không phải việc làm kèm [[ref:https://www.grover.com/at-en/g-about/asset-condition]].
 
 **Quy trình kỹ thuật.** Máy quay về không bao giờ được chuyển thẳng sang trạng thái *Sẵn sàng*. Nó phải đi
 qua bước khôi phục ảnh hệ điều hành chuẩn ở mức toàn ổ, ghi đè toàn bộ phân vùng chứ không chỉ phân vùng hệ
@@ -185,33 +190,32 @@ mang đi sửa ngoài. Tên và nội dung tài liệu này là **[Cần kiểm 
 **Công cụ.** Nền là ảnh đĩa toàn ổ bung bằng Clonezilla hoặc Rescuezilla, cả hai đều miễn phí và mã nguồn mở.
 Với máy nghi có dữ liệu nhạy cảm, hoặc trước mỗi học kỳ, nhóm chạy thêm một lượt xoá ở tầng firmware của ổ,
 là ATA Secure Erase với ổ SATA hoặc NVMe Format NVM với ổ NVMe, vì ghi đè theo địa chỉ logic không chạm tới
-các khối vật lý mà cơ chế san bằng hao mòn của SSD đã ánh xạ đi chỗ khác **[Cần kiểm chứng]**. Mã hoá ổ đĩa
-BitLocker được bật ngay từ lúc nhập kho, trước khi có bất kỳ dữ liệu khách nào, đúng thứ tự cần thiết để việc
-xoá khoá mã hoá thực sự có giá trị. BitLocker chỉ có ở Windows Pro trở lên [[ref:https://www.microsoft.com/en-us/windows/business/compare-windows-11]],
+các khối vật lý mà cơ chế san bằng hao mòn của SSD đã ánh xạ đi chỗ khác **[Cần kiểm chứng]**. BitLocker được
+bật ngay từ lúc nhập kho, trước khi có bất kỳ dữ liệu khách nào, đúng thứ tự cần thiết để việc xoá khoá mã
+hoá thực sự có giá trị. BitLocker chỉ có ở Windows Pro trở lên [[ref:https://www.microsoft.com/en-us/windows/business/compare-windows-11]],
 thuật toán mặc định là XTS-AES 128 bit [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/endpoint-security/ref-disk-encryption-settings.md]],
 và khoá phục hồi được ký gửi vào kho khoá của nhóm chứ không để trên máy [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/endpoint-security/encrypt-bitlocker-windows.md]].
 Nhóm cố ý **không bật xác thực TPM kèm mã PIN trước khi khởi động**: bắt một sinh viên nhập thêm PIN vào
 buổi sáng đi thi là đánh đổi tồi.
 
 Ở giai đoạn sau, khi đội máy đủ lớn để chịu được chi phí giấy phép, có hai lựa chọn rút ngắn thời gian quay
-vòng đáng cân nhắc. Chế độ máy dùng chung của Windows cho phép đặt mốc xoá tài khoản là *ngay sau khi đăng
-xuất*, tức là dữ liệu phiên của khách biến mất ngay khi họ thoát [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/templates/ref-shared-device-settings-windows.md]],
-nhưng chế độ này chỉ chạy trên bản Pro và Enterprise [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/templates/configure-shared-device.md]].
-Autopilot Reset đưa máy về trạng thái sạch bằng tổ hợp phím ngay tại màn hình khoá mà vẫn giữ được cấu hình
-quản lý [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/autopilot/windows-autopilot-reset.md]].
-Nhóm chưa dùng cả hai vì cả hai đều cần hạ tầng và giấy phép trả tiền theo người dùng. Cũng cần cảnh báo một
-cạm bẫy: chế độ xoá sạch kèm ghi đè vùng trống của Intune có thể khiến một số máy không khởi động lại được
+vòng. Chế độ máy dùng chung của Windows cho phép đặt mốc xoá tài khoản là *ngay sau khi đăng xuất*, tức dữ
+liệu phiên của khách biến mất ngay khi họ thoát [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/templates/ref-shared-device-settings-windows.md]],
+nhưng chỉ chạy trên bản Pro và Enterprise [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/templates/configure-shared-device.md]].
+Autopilot Reset đưa máy về trạng thái sạch bằng tổ hợp phím ngay tại màn hình khoá mà vẫn giữ cấu hình quản
+lý [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/autopilot/windows-autopilot-reset.md]].
+Nhóm chưa dùng cả hai vì đều cần hạ tầng và giấy phép trả tiền theo người dùng. Một cạm bẫy nữa: chế độ xoá
+sạch kèm ghi đè vùng trống của Intune có thể khiến một số máy không khởi động lại được
 [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-management/actions/wipe.md]],
 nên nhóm không dùng nó cho đội máy đang khai thác.
 
 **Cách chứng minh với khách.** Ba việc, theo thứ tự sức nặng tăng dần. Một, mỗi lần máy quay vòng, hệ thống
-sinh một bản ghi xoá dữ liệu gắn với mã tài sản, ghi thời điểm bắt đầu, thời điểm kết thúc, công cụ và phiên
-bản, kèm mã băm của ảnh hệ điều hành gốc đã bung. Hai, khách nhận máy thấy ngay trên ứng dụng dòng trạng thái
+sinh một bản ghi xoá dữ liệu gắn với mã tài sản, ghi thời điểm bắt đầu và kết thúc, công cụ và phiên bản,
+kèm mã băm của ảnh hệ điều hành gốc đã bung. Hai, khách nhận máy thấy ngay trên ứng dụng dòng trạng thái
 "máy này đã được khôi phục về ảnh gốc lúc HH:MM ngày DD/MM", lấy trực tiếp từ bản ghi đó chứ không phải do
 nhân viên gõ tay. Ba, với máy rời khỏi đội, nhóm cấp một chứng nhận xoá dữ liệu ghi rõ mức áp dụng, kỹ thuật
-cụ thể và kết quả xác minh, trong đó bước xác minh là đọc mẫu ngẫu nhiên ở ít nhất năm vị trí trên ổ và chạy
-thử một công cụ khôi phục tệp miễn phí trong hai phút **[Cần kiểm chứng]**. Xoá mà không xác minh thì chưa
-gọi là đã xoá.
+và kết quả xác minh, trong đó xác minh là đọc mẫu ngẫu nhiên ở ít nhất năm vị trí trên ổ và chạy thử một công
+cụ khôi phục tệp miễn phí trong hai phút **[Cần kiểm chứng]**. Xoá mà không xác minh thì chưa gọi là đã xoá.
 
 ## Bảo mật ứng dụng
 
@@ -227,16 +231,15 @@ gọi là đã xoá.
 {caption: Biện pháp bảo mật ứng dụng theo tầng, kèm mối đe doạ tương ứng.}
 {widths: 2,7,7}
 
-Ba lỗi phổ biến của ứng dụng web mà nhóm phòng ngay từ thiết kế, vì chúng đúng với bối cảnh của dự án hơn
-phần còn lại. **Thứ nhất là xem trộm đối tượng của người khác bằng cách đổi mã định danh.** Mọi truy vấn đơn
-thuê đều kèm điều kiện chủ sở hữu, không chỉ kèm mã đơn. **Thứ hai là thanh toán bị ghi trùng.** Bảng giao
-dịch có ràng buộc duy nhất trên cặp nhà cung cấp và mã giao dịch, nên nhận cùng một sự kiện mười lần vẫn chỉ
-ghi một dòng; các thao tác tạo giữ chỗ và tạo đơn đều nhận tiêu đề khoá chống lặp theo mẫu của Stripe
+Ba lỗi phổ biến của ứng dụng web mà nhóm phòng ngay từ thiết kế, vì chúng đúng với bối cảnh dự án hơn phần
+còn lại. **Thứ nhất là xem trộm đối tượng của người khác bằng cách đổi mã định danh:** mọi truy vấn đơn thuê
+đều kèm điều kiện chủ sở hữu, không chỉ kèm mã đơn. **Thứ hai là thanh toán bị ghi trùng:** bảng giao dịch có
+ràng buộc duy nhất trên cặp nhà cung cấp và mã giao dịch, nên nhận cùng một sự kiện mười lần vẫn chỉ ghi một
+dòng, và các thao tác tạo giữ chỗ, tạo đơn đều nhận tiêu đề khoá chống lặp theo mẫu của Stripe
 [[ref:https://stripe.com/blog/idempotency]] [[ref:https://brandur.org/idempotency-keys]] [[ref:https://httptoolkit.com/blog/idempotency-keys/]].
-**Thứ ba là rò rỉ khoá bí mật ra phía trình duyệt.** Mọi lời gọi tới dịch vụ eKYC và tới cổng thanh toán đều
-đi qua máy chủ của nhóm, không có ngoại lệ [[ref:https://github.com/VNQuy94/vnpt-ekyc-poc]]. Ngoài ra nhóm
-có giới hạn tần suất trên các đường dẫn nhạy cảm là gửi đường dẫn đăng nhập, nộp hồ sơ xác minh và tra cứu
-đơn, để một tài khoản bị chiếm cũng không quét được toàn bộ cơ sở dữ liệu trong vài phút.
+**Thứ ba là rò rỉ khoá bí mật ra phía trình duyệt:** mọi lời gọi tới dịch vụ eKYC và cổng thanh toán đều đi
+qua máy chủ của nhóm, không có ngoại lệ [[ref:https://github.com/VNQuy94/vnpt-ekyc-poc]]. Các đường dẫn nhạy
+cảm còn bị giới hạn tần suất, để một tài khoản bị chiếm cũng không quét được cả cơ sở dữ liệu trong vài phút.
 
 ## Nhật ký kiểm toán và ai giám sát người quản trị
 
@@ -263,12 +266,12 @@ hình máy của khách, thêm người vào danh sách chặn nội bộ, xoá 
 người, và sự bất đối xứng đó là cố ý theo nguyên tắc thất bại an toàn: gây hại cho khách phải khó hơn sửa sai.
 
 **Rà soát định kỳ và thông báo cho khách.** Mỗi tháng, một thành viên không phải người thao tác nhiều nhất
-trong tháng sẽ đọc lại toàn bộ nhật ký các thao tác nhạy cảm và đối chiếu với đơn thuê tương ứng; kết quả rà
-soát được ghi vào biên bản họp vận hành. Song song, mỗi khi có thao tác nhạy cảm chạm vào tài khoản của một
-khách cụ thể, gồm mở hồ sơ xác minh, khoá máy, thêm vào danh sách chặn hoặc kết xuất hồ sơ, hệ thống tự gửi
-thông báo cho chính khách đó nói rõ đã có thao tác gì và vào lúc nào. Đây là cơ chế giám sát rẻ nhất và mạnh
-nhất: người bị ảnh hưởng luôn là người có động lực kiểm tra cao nhất. Về nguyên tắc thiết kế, mọi thao tác có
-ý nghĩa đều sinh một bản ghi nhật ký, theo đúng cách các hệ thống quản lý tài sản trưởng thành đang làm
+trong tháng đọc lại nhật ký các thao tác nhạy cảm, đối chiếu với đơn thuê tương ứng, và ghi kết quả vào biên
+bản họp vận hành. Song song, mỗi khi có thao tác nhạy cảm chạm vào tài khoản của một khách cụ thể, gồm mở hồ
+sơ xác minh, khoá máy, thêm vào danh sách chặn hoặc kết xuất hồ sơ, hệ thống tự gửi thông báo cho chính khách
+đó nói rõ đã có thao tác gì và vào lúc nào. Đây là cơ chế giám sát rẻ nhất và mạnh nhất, vì người bị ảnh
+hưởng luôn có động lực kiểm tra cao nhất. Nguyên tắc chung là mọi thao tác có ý nghĩa đều sinh một bản ghi
+nhật ký, đúng cách các hệ thống quản lý tài sản trưởng thành đang làm
 [[ref:https://deepwiki.com/grokability/snipe-it/4.4-activity-logging]] [[ref:https://www.emergentmind.com/topics/immutable-audit-log]].
 
 ## Kế hoạch ứng phó sự cố
@@ -276,30 +279,35 @@ nhất: người bị ảnh hưởng luôn là người có động lực kiểm
 Nhóm không có đội an ninh thông tin và sẽ không giả vờ là có. Kế hoạch dưới đây được viết cho ba sinh viên,
 với những việc ba sinh viên làm được trong 24 giờ đầu. Người chịu trách nhiệm điều phối là quản trị viên trực
 tuần; nếu không liên lạc được trong 30 phút thì quyền điều phối chuyển sang người tiếp theo trong danh sách.
+Ba công cụ dùng chung cho cả bốn kịch bản: nhật ký kiểm toán nối chuỗi băm để dựng lại trình tự sự việc
+[[ref:https://tracehold.ai/blog/immutable-audit-log-hmac-hash-chain/]], mã hoá ổ đĩa đã bật sẵn trên mọi máy
+để hạ mức thiệt hại khi mất thiết bị vật lý [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-configuration/endpoint-security/encrypt-bitlocker-windows.md]],
+và tác nhân chống trộm có hành động báo động, khoá máy cùng lịch sử vị trí thiết bị
+[[ref:https://raw.githubusercontent.com/prey/mcp-prey/main/README.md]]. Mốc thời gian phải thông báo cho cơ
+quan có thẩm quyền là điểm nhóm bắt buộc tra lại trong văn bản pháp luật hiện hành
+[[ref:https://thuvienphapluat.vn]] **[Cần kiểm chứng]**.
 
 | Kịch bản | 0 đến 2 giờ | 2 đến 8 giờ | 8 đến 24 giờ |
 |---|---|---|---|
 | **Lộ cơ sở dữ liệu** | Người trực cắt truy cập từ bên ngoài vào cơ sở dữ liệu, đổi toàn bộ khoá bí mật, buộc đăng xuất mọi phiên; chụp lại nhật ký để giữ bằng chứng | Xác định phạm vi bằng cách đối chiếu nhật ký truy cập với bảng kê dữ liệu ở chương này; xác định có ảnh giấy tờ hay vector khuôn mặt trong phạm vi không | Thông báo cho từng khách trong phạm vi, nói rõ trường dữ liệu nào bị ảnh hưởng và khuyến nghị cụ thể; chuẩn bị thông báo cho cơ quan có thẩm quyền theo thời hạn luật định **[Cần kiểm chứng]** |
 | **Mất thiết bị chứa dữ liệu** (máy của nhân viên, ổ cứng sao lưu) | Thu hồi phiên đăng nhập của thiết bị đó; kiểm tra thiết bị có bật mã hoá ổ đĩa không; nếu có thì rủi ro giảm mạnh | Kiểm tra thiết bị có chứa bản sao ảnh hiện trạng hay ảnh giấy tờ không; các thiết bị làm việc chỉ được phép truy cập qua trình duyệt, không giữ bản sao cục bộ | Nếu xác định có dữ liệu cá nhân trên thiết bị mất, xử lý như kịch bản lộ cơ sở dữ liệu với phạm vi tương ứng; rà lại quy định cấm giữ bản sao cục bộ |
 | **Tài khoản quản trị bị chiếm** | Vô hiệu hoá tài khoản đó, đổi yếu tố xác thực hai lớp, buộc đăng xuất toàn hệ thống | Đọc lại nhật ký kiểm toán trong toàn bộ khoảng thời gian nghi ngờ, đặc biệt các thao tác hai người duyệt; kiểm tra chuỗi băm của nhật ký có đứt đoạn không | Hoàn tác các thao tác trái phép bằng bản ghi đính chính mới, không sửa bản ghi cũ; thông báo cho mọi khách có tài khoản bị thao tác |
-| **Nhà cung cấp bên thứ ba bị tấn công** (hạ tầng, cổng thanh toán, dịch vụ eKYC) | Ngắt tích hợp bị ảnh hưởng, chuyển sang quy trình thủ công đã có sẵn: xác minh tại quầy, thu tiền chuyển khoản đối soát tay | Thu hồi và cấp lại toàn bộ khoá bí mật dùng với nhà cung cấp đó; rà nhật ký webhook tìm nội dung giả mạo | Yêu cầu nhà cung cấp trả lời bằng văn bản về phạm vi; thông báo cho khách nếu dữ liệu của họ nằm trong phạm vi |
+| **Nhà cung cấp bên thứ ba bị tấn công** (hạ tầng, cổng thanh toán, dịch vụ eKYC) | Ngắt tích hợp bị ảnh hưởng, chuyển sang quy trình thủ công đã có sẵn: xác minh tại quầy, thu tiền chuyển khoản đối soát tay | Thu hồi và cấp lại toàn bộ khoá bí mật dùng với nhà cung cấp đó, việc này khả thi vì khoá chỉ nằm ở máy chủ [[ref:https://github.com/VNQuy94/vnpt-ekyc-poc]]; rà nhật ký webhook tìm nội dung giả mạo bằng kiểm chữ ký [[ref:https://matheuspalma.com/blog/outbound-webhook-delivery-signing-retries-dead-letters]] | Yêu cầu nhà cung cấp trả lời bằng văn bản về phạm vi; thông báo cho khách nếu dữ liệu của họ nằm trong phạm vi |
 {caption: Bốn kịch bản sự cố và các bước xử lý trong 24 giờ đầu.}
 {widths: 3,4.5,4.3,4.7}
 {note: Mọi bước trong bảng đều ghi vào nhật ký kiểm toán ngay khi thực hiện. Thời hạn thông báo cho cơ quan có thẩm quyền là điểm phải xác minh trong văn bản pháp luật trước khi vận hành thật.}
 
-Hai nguyên tắc chạy xuyên suốt bốn kịch bản. **Nguyên tắc thứ nhất: thông báo sớm và nói đúng phạm vi, kể cả
-khi chưa biết hết.** Một thông báo nói "chúng tôi đang xác định phạm vi, dưới đây là những gì đã biết" tốt hơn
-im lặng ba ngày rồi công bố một bản báo cáo đầy đủ. **Nguyên tắc thứ hai: không bao giờ sửa dữ liệu cũ để làm
-đẹp hồ sơ.** Mọi sửa chữa đều làm bằng bản ghi mới tham chiếu tới bản ghi cũ. Đây là lý do toàn bộ thiết kế
-nhật ký ở mục trên tồn tại, và nó chỉ có giá trị nếu nhóm giữ đúng nguyên tắc vào đúng ngày mà việc giữ nó
-khó nhất.
+Hai nguyên tắc chạy xuyên suốt bốn kịch bản. **Một, thông báo sớm và nói đúng phạm vi, kể cả khi chưa biết
+hết:** một thông báo nói "chúng tôi đang xác định phạm vi, dưới đây là những gì đã biết" tốt hơn im lặng ba
+ngày rồi công bố một báo cáo đầy đủ. **Hai, không bao giờ sửa dữ liệu cũ để làm đẹp hồ sơ:** mọi sửa chữa
+đều làm bằng bản ghi mới tham chiếu tới bản ghi cũ. Đây là lý do toàn bộ thiết kế nhật ký ở mục trên tồn tại,
+và nó chỉ có giá trị nếu nhóm giữ đúng nguyên tắc vào đúng ngày việc giữ nó khó nhất.
 
 :::risk Điểm yếu nhóm tự nhận
 Ba điểm. **Một**, nhóm chưa có pháp nhân nên chưa lập được hồ sơ đánh giá tác động xử lý dữ liệu cá nhân theo
-đúng thủ tục, và đây là rào cản bắt buộc phải vượt trước khi thu thập dữ liệu sinh trắc học ở quy mô thật.
-**Hai**, toàn bộ phần nghĩa vụ pháp lý trong chương này mang nhãn [Cần kiểm chứng] vì nhóm chưa mở được văn
-bản gốc; đây là việc đầu tiên phải làm, không phải việc để sau. **Ba**, ba quản trị viên đều là người trong
-nhóm, nên nguyên tắc hai người duyệt chỉ có giá trị chừng nào ba người không cùng đồng thuận làm sai. Cơ chế
-kỹ thuật không giải quyết được vấn đề đó; chỉ có nhật ký bất biến và việc thông báo cho khách là giữ lại được
-dấu vết.
+đúng thủ tục, và đây là rào cản phải vượt trước khi thu dữ liệu sinh trắc học ở quy mô thật. **Hai**, toàn bộ
+phần nghĩa vụ pháp lý trong chương này mang nhãn [Cần kiểm chứng] vì nhóm chưa mở được văn bản gốc; đây là
+việc đầu tiên phải làm, không phải việc để sau. **Ba**, ba quản trị viên đều là người trong nhóm, nên nguyên
+tắc hai người duyệt chỉ có giá trị chừng nào ba người không cùng đồng thuận làm sai. Cơ chế kỹ thuật không
+giải quyết được điều đó; chỉ có nhật ký bất biến và việc thông báo cho khách là giữ lại được dấu vết.
 :::
