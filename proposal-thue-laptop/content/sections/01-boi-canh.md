@@ -14,17 +14,7 @@ Trên nền dữ kiện đó, hướng dẫn chính thức của trường đặ
 
 **Bài làm nằm trên ổ cứng máy sinh viên trước khi lên máy chủ (F6).** Luồng dữ liệu của EOS đi theo một chiều: đề tải từ máy chủ trường về máy cá nhân, sinh viên làm bài ở trạng thái ngoại tuyến, bài được lưu thành file trên ổ cứng máy mình, rồi mới nộp lên máy chủ ở bước cuối [[ref:https://www.studocu.vn/vn/document/truong-dai-hoc-fpt/quan-tri-kinh-doanh/huong-dan-lam-bai-thi-cuoi-ky-tren-eos-client/27055728]] [[ref:https://hanoi.fpt.edu.vn/huong-dan-sinh-vien-su-dung-va-thi-tren-phan-mem-eos.html]]. *[Cần kiểm chứng]* Tài liệu hướng dẫn của trường cũng cảnh báo rằng nếu không giải nén đúng phần mềm thi trước khi thi thì có thể gặp lỗi và mất bài, và khi máy gặp sự cố giữa ca thi thì sinh viên phải báo ngay giám thị [[ref:https://daihoc.fpt.edu.vn/tin-tuc-chung-2/huong-dan-sinh-vien-su-dung-va-thi-tren-phan-mem-eos-tai-fptu-ha-noi/]].
 
-```
-Máy chủ trường  ──(tải đề)──►  LAPTOP CÁ NHÂN của sinh viên
-                                        │
-                                 làm bài ngoại tuyến
-                                        │
-                             bài lưu thành file TRÊN Ổ CỨNG
-                                 máy của sinh viên
-                                        │
-                                 ──(nộp bài)──►  Máy chủ trường
-```
-{caption: Luồng dữ liệu của một ca thi EOS. Bài làm tồn tại vật lý trên máy sinh viên trong suốt thời gian thi, nên máy hỏng giữa chừng không chỉ làm gián đoạn mà còn có nguy cơ mất bài.}
+![Luồng dữ liệu của một ca thi EOS, và sáu cách chiếc laptop cá nhân có thể làm hỏng cả buổi thi. Bài làm tồn tại vật lý trên ổ cứng máy sinh viên trong suốt thời gian thi, nên không có thành phần nào khác gánh thay khi máy hỏng.](assets/diagrams/00-diem-chet-don-le.png){w=14}{src: Nguồn: nhóm tác giả, dựng từ hướng dẫn thi EOS của nhà trường.}
 
 **Tai nghe có dây (F7).** Phần thi nghe của các môn tiếng Anh yêu cầu tai nghe có dây, trong khi nhiều laptop đời mới đã bỏ jack 3.5mm [[ref:https://daihoc.fpt.edu.vn/tin-tuc-chung-2/huong-dan-sinh-vien-k18-su-dung-va-thi-tren-phan-mem-eos-ky-thi-kiem-tra-tieng-anh/]]. Một chiếc máy "mượn tạm" hoàn toàn có thể qua được vòng cài đặt rồi vẫn hỏng việc ở đúng phần nghe.
 
