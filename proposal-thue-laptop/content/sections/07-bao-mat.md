@@ -88,7 +88,7 @@ khoản, vẫn đối chiếu được với danh sách chặn nội bộ, nhưn
 chuỗi băm chứ không phải danh sách số căn cước của vài nghìn sinh viên. Cái giá phải trả là nhóm không tra
 ngược được số căn cước từ hệ thống của mình, kể cả khi muốn.
 
-**Khuôn mặt được lưu dưới dạng vector đặc trưng, không lưu ảnh chân dung.** Đây là mức tối thiểu đủ để so
+**Khuôn mặt được lưu dưới dạng vector đặc trưng, kèm đúng một ảnh chân dung đã cắt ở độ phân giải thấp.** Vector là thứ dùng để so khớp tự động; ảnh chân dung độ phân giải thấp chỉ hiện trên màn hình bàn giao để nhân viên đối chiếu mặt người với hồ sơ, không tải xuống được và không phải ảnh giấy tờ. Đây là mức tối thiểu đủ để so
 khớp một lần lúc mở tài khoản. Nhóm chọn các thư viện có giấy phép cho phép dùng trong dịch vụ có thu tiền,
 cụ thể là `face_recognition` giấy phép MIT [[ref:https://github.com/ageitgey/face_recognition]] và DeepFace
 cũng giấy phép MIT, có sẵn tuỳ chọn `anti_spoofing` [[ref:https://pypi.org/project/deepface/]], kèm mô hình
@@ -153,7 +153,7 @@ phần nhóm phải xác minh đầu tiên, vì nếu luật đã có hiệu l�
 
 | Nghĩa vụ **[Cần kiểm chứng]** | ExamLap đáp ứng bằng cách nào |
 |---|---|
-| Dữ liệu sinh trắc học thuộc nhóm dữ liệu cá nhân nhạy cảm, có chế độ bảo vệ cao hơn | Không lưu ảnh chân dung, chỉ lưu vector đặc trưng; mã hoá khi lưu; hạn xoá 90 ngày; mọi lần truy cập đều vào nhật ký; thông tin đăng nhập dịch vụ eKYC chỉ nằm ở máy chủ [[ref:https://github.com/VNQuy94/vnpt-ekyc-poc]] |
+| Dữ liệu sinh trắc học thuộc nhóm dữ liệu cá nhân nhạy cảm, có chế độ bảo vệ cao hơn | Không lưu ảnh giấy tờ quá hạn; lưu vector đặc trưng và một ảnh chân dung độ phân giải thấp dùng cho khâu bàn giao; mã hoá khi lưu; hạn xoá 90 ngày; mọi lần truy cập đều vào nhật ký; thông tin đăng nhập dịch vụ eKYC chỉ nằm ở máy chủ [[ref:https://github.com/VNQuy94/vnpt-ekyc-poc]] |
 | Sự đồng ý phải rõ ràng, tách bạch, nêu rõ mục đích và thời hạn | Màn hình xác minh có ô tích riêng cho dữ liệu sinh trắc học, tách khỏi ô đồng ý điều khoản dịch vụ; nội dung ô ghi đúng ba điều: thu cái gì, để làm gì, xoá sau bao lâu; từ chối ô này vẫn thuê được máy, chỉ là phải xác minh tại quầy |
 | Phải lập hồ sơ đánh giá tác động xử lý dữ liệu cá nhân | Bảng kê dữ liệu ở mục trên chính là bộ khung của hồ sơ này. Nhóm chưa có pháp nhân nên chưa nộp được; đây là mốc bắt buộc trước khi chuyển sang vận hành có thu tiền quy mô lớn |
 | Chủ thể dữ liệu có quyền truy cập, xoá và rút lại sự đồng ý | Chức năng tự tải về toàn bộ dữ liệu cá nhân có sẵn trong tài khoản; yêu cầu xoá được xử lý trong 72 giờ và cần hai người duyệt; rút lại đồng ý sinh trắc học thì hồ sơ chuyển về chế độ xác minh tại quầy thay vì khoá tài khoản |
@@ -260,10 +260,7 @@ tự nó không chứng minh được với bên thứ ba rằng không ai có q
 dòng [[ref:https://medium.com/@veritaschain/append-only-is-the-easy-part-e25820208213]] [[ref:https://aesirx.io/blog/compliance-one/immutable-audit-trails-when-your-audit-log-becomes-cryptographic-proof]].
 Một tác vụ chạy hằng đêm quét toàn chuỗi tìm dòng bị đứt; phát hiện một dòng đứt là căn cứ để dừng hệ thống.
 
-**Nguyên tắc hai người duyệt cho thao tác nhạy cảm.** Bốn thao tác không ai được tự mình thực hiện: khoá màn
-hình máy của khách, thêm người vào danh sách chặn nội bộ, xoá dữ liệu cá nhân theo yêu cầu, và kết xuất hồ sơ
-đơn ra tệp. Cả người yêu cầu, người phê duyệt và lý do đều vào nhật ký. Việc gỡ khoá màn hình thì chỉ cần một
-người, và sự bất đối xứng đó là cố ý theo nguyên tắc thất bại an toàn: gây hại cho khách phải khó hơn sửa sai.
+**Nguyên tắc hai người duyệt cho thao tác nhạy cảm.** Năm thao tác không ai được tự mình thực hiện, đúng danh sách ở Chương 5: khoá màn hình máy của khách, **thêm** một người vào danh sách chặn nội bộ, hoàn tiền ngoài phạm vi tiền cọc, khấu trừ vượt biểu phí công khai, và xoá dữ liệu cá nhân theo yêu cầu. Cả người yêu cầu, người phê duyệt và lý do đều vào nhật ký. Chiều ngược lại — gỡ khoá màn hình và gỡ một khách khỏi danh sách chặn — chỉ cần một người, và sự bất đối xứng đó là cố ý theo nguyên tắc thất bại an toàn: gây hại cho khách phải khó hơn sửa sai. Việc kết xuất hồ sơ một đơn ra tệp không cần hai người duyệt nhưng luôn được ghi nhật ký kèm lý do.
 
 **Rà soát định kỳ và thông báo cho khách.** Mỗi tháng, một thành viên không phải người thao tác nhiều nhất
 trong tháng đọc lại nhật ký các thao tác nhạy cảm, đối chiếu với đơn thuê tương ứng, và ghi kết quả vào biên

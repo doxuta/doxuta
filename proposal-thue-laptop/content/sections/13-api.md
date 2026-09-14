@@ -45,7 +45,7 @@ Giao diện lập trình của ExamLap là REST trên HTTPS, yêu cầu và ph�
 | PATCH | `/api/me` | Sửa điện thoại, tài khoản Zalo | SV | Không sửa được `email_fpt` |
 | POST | `/api/kyc/submit` | Nộp hai mặt căn cước và video người sống | SV | `multipart`, mỗi tệp ≤ 8 MB |
 | GET | `/api/kyc/status` | Trạng thái xác minh và lý do từ chối | SV | Không trả về ảnh gốc |
-| POST | `/api/admin/kyc/{id}/decision` | Duyệt tay khi điểm khớp dưới 0,90 | QT | Ghi `audit_logs` |
+| POST | `/api/admin/kyc/{id}/decision` | Duyệt tay khi điểm so khớp khuôn mặt trong khoảng 0,55 đến 0,68 | QT | Ghi `audit_logs` |
 | GET | `/api/slots` | Ca thi đang mở bán | Công khai | Lọc theo ngày |
 | GET | `/api/models` | Nhóm máy A, B, C kèm ngày thử SEB | Công khai | `devices.seb_tested_at` |
 | GET | `/api/availability` | Đếm suất còn trống theo ca và nhóm máy | Công khai | Dùng chỉ mục GiST sẵn có |

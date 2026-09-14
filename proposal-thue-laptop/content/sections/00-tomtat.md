@@ -7,10 +7,13 @@ nên không thi được. Nói cách khác, **chiếc laptop là điểm chết 
 thi thì mọi sự chuẩn bị khác đều bằng không.
 
 Cái giá của một lần hỏng việc như vậy không nhỏ. Học phí giai đoạn chuyên ngành tại campus Đà Nẵng là
-22.120.000đ một học kỳ; chia cho khoảng năm môn thi, **giá trị kinh tế của một môn thi vào khoảng
-4.424.000đ**, chưa kể một học kỳ chậm tiến độ. Trong khi đó, các cửa hàng cho thuê laptop tại Đà Nẵng
-đều nằm cách khu Hoà Hải 8 đến 15 km, chỉ tính giá theo ngày, mở cửa trong giờ hành chính, và không ai
-trong số họ giao một chiếc máy **đã cài sẵn và đã chạy thử phần mềm thi của trường**.
+22.120.000đ một học kỳ [[ref:https://baodanang.vn/hoc-phi-truong-dai-hoc-fpt-2025-2026-tai-cac-co-so-tren-ca-nuoc-3151966.html]];
+nếu một học kỳ có khoảng năm môn thi thì **giá trị kinh tế của một môn thi vào khoảng 4.424.000đ**
+[Ước lượng của nhóm, giả định năm môn một kỳ], chưa kể một học kỳ chậm tiến độ. Trong khi đó, các cửa hàng
+cho thuê laptop tại Đà Nẵng đều nằm cách khu Hoà Hải 8 đến 15 km, đơn vị thời gian ngắn nhất được niêm yết
+là một ngày, và không đơn vị nào định vị chuyên cho sinh viên đi thi: không ai giao một chiếc máy **đã cài
+sẵn và đã chạy thử phần mềm thi của trường** [[ref:https://leminhstore.vn/thue-laptop-sinh-vien-da-nang-104917u.html]]
+[[ref:https://dhlend.com/cho-thue-may-tinh-laptop-pc-may-in-da-nang.html]].
 
 ### Giải pháp
 
@@ -19,8 +22,10 @@ một chiếc **máy đã sẵn sàng thi** — Windows bản quyền, EOS Clien
 phiên bản, đã chạy thử, có jack 3.5mm và tai nghe có dây kèm theo, pin đầy, dữ liệu người thuê trước đã
 xoá sạch. Toàn bộ việc đặt máy diễn ra trên web trong dưới ba phút, kể cả lúc năm giờ sáng.
 
-Ba cam kết công khai: **giao trước giờ thi 30 phút**, **đổi máy trong 15 phút** nếu máy lỗi giữa ca thi,
-và **hoàn cọc tự động trong 5 phút** sau khi trả máy nguyên vẹn.
+Ba cam kết dịch vụ mà ExamLap thiết kế để công bố: **giao trước giờ thi 30 phút**, **đổi máy trong 15 phút**
+nếu máy lỗi giữa ca thi, và **hoàn cọc tự động trong 5 phút** sau khi trả máy nguyên vẹn. Hai cam kết đầu phụ
+thuộc việc nhà trường cho đặt điểm giao nhận trong khuôn viên (mục E13), cam kết thứ ba phụ thuộc năng lực
+hoàn tiền của cổng thanh toán (mục E11); cả ba chỉ được đưa lên trang chủ sau khi đã kiểm chứng xong.
 
 Điểm khác biệt về an toàn tài sản nằm ở một lựa chọn có chủ ý: **cọc thấp, danh tính mạnh**. ExamLap
 **không giữ căn cước hay thẻ sinh viên** của khách. Thay vào đó là xác minh danh tính điện tử một lần,
@@ -29,10 +34,11 @@ ràng buộc email `@fpt.edu.vn` và mã số sinh viên, hợp đồng điện 
 
 ### Thị trường
 
-Nhóm không nhắm 120.000 sinh viên của thành phố Đà Nẵng. Nhóm nhắm đúng **khoảng 5.000 sinh viên Đại học
-FPT Đà Nẵng** — nhóm duy nhất ở thành phố này bắt buộc phải có một chiếc laptop Windows chạy được để dự thi
-cuối kỳ. Chỉ cần 5 đến 10 phần trăm trong số đó gặp sự cố một lần mỗi năm là đã có 250 đến 500 lượt thuê.
-Năm vận hành đầu tiên đặt mục tiêu **382 lượt thuê**.
+Nhóm không nhắm 120.000 sinh viên của thành phố Đà Nẵng. Nhóm nhắm đúng **khoảng 4.500 đến 6.000 sinh viên
+Đại học FPT Đà Nẵng** [Ước lượng của nhóm] — nhóm mà nghiên cứu công khai xác nhận được là bắt buộc phải có
+một chiếc laptop Windows chạy được để dự thi cuối kỳ. Nhóm chưa tìm được bằng chứng nào cho thấy các trường
+khác tại Đà Nẵng cũng ràng buộc như vậy, và đó là một giả định phải kiểm chứng chứ không phải một kết luận. Chỉ cần khoảng 5% trong số đó cần tới dịch vụ, với giả định mỗi khách quay lại bình quân 1,5 lần, là đã đủ
+**382 lượt thuê** — mục tiêu của năm vận hành đầu tiên [Ước lượng của nhóm, chi tiết ở Chương 3].
 
 ### Con số
 
@@ -49,8 +55,9 @@ Năm vận hành đầu tiên đặt mục tiêu **382 lượt thuê**.
 
 Mô hình này **thâm dụng tài sản**: gần 78% vốn ban đầu nằm ở đội máy, và thời gian hoàn vốn 27 tháng dài
 hơn kỳ vọng thông thường của một dự án sinh viên. Nhóm trình bày đúng như vậy thay vì làm đẹp con số. Bù
-lại, tại thời điểm hoàn vốn đội máy vẫn còn giá trị thanh lý khoảng 35% giá mua, và dòng tiền hoạt động
-chuyển dương từ tháng thứ tám.
+lại, tại thời điểm hoàn vốn đội máy vẫn còn giá trị thanh lý khoảng 35% giá mua; EBITDA dương ngay từ
+tháng thứ ba, và luỹ kế lợi nhuận sau thuế chuyển dương từ tháng thứ tám, sau khi chạm đáy âm
+5.928.800đ vào tháng 02/2027.
 
 ### Điều nhóm chưa biết, và ngưỡng dừng
 
@@ -60,8 +67,8 @@ thi* — hiện **chưa có dữ liệu**. Không nguồn công khai nào trả 
 một tuần bằng một cuộc khảo sát và hai cuộc hẹn.
 
 Vì vậy nhóm chia việc bỏ tiền thành ba cổng: **Cổng 1** dưới 5.000.000đ cho khảo sát và phần mềm, mở ngay;
-**Cổng 2** khoảng 22.000.000đ mua ba máy chạy thử, chỉ mở khi khảo sát đạt bốn trong năm ngưỡng đã đặt;
-**Cổng 3** mua đủ mười máy, chỉ mở khi năm mươi lượt thuê đầu tiên đạt chỉ tiêu. Ngưỡng dừng được viết ra
+**Cổng 2** khoảng 22.000.000đ mua ba máy chạy thử, chỉ mở khi đủ bốn điều kiện ở Chương 18, trong đó có kết quả khảo sát ở Phụ lục A;
+**Cổng 3** mua đủ mười máy, chỉ mở khi đợt chạy thử ba máy đạt đủ năm chỉ số ở Chương 18. Ngưỡng dừng được viết ra
 thành con số ở Chương 16.
 
 :::ok Đề nghị của nhóm

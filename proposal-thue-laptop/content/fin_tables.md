@@ -64,8 +64,9 @@
 | Chỉ tiêu | Giá trị |
 |---|---|
 | Doanh thu bình quân mỗi lượt thuê | 144.100đ |
-| Chi phí biến đổi mỗi lượt | 27.600đ |
-| Số dư đóng góp mỗi lượt | **110.736đ** |
+| Trừ: chi phí biến đổi mỗi lượt (công, eKYC, giao nhận, vật tư) | −27.600đ |
+| Trừ: trích quỹ dự phòng rủi ro, 4% doanh thu | −5.764đ |
+| **Số dư đóng góp mỗi lượt** | **110.736đ** |
 | Định phí hằng tháng | 2.800.000đ |
 | Khấu hao hằng tháng | 1.571.000đ |
 | **Hoà vốn tiền mặt** | **25 lượt/tháng** |

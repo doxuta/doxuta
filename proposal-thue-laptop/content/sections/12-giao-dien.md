@@ -87,7 +87,7 @@ Khách mở lại màn hình này nhiều nhất, thường lúc đang đi bộ 
 
 ![Ứng dụng nhân viên trên điện thoại với biên bản kiểm tra bảy mục, sáu mục đã tích, và nút ký điện tử đang bị khoá.](assets/screenshots/06-staff.png){w=8}{src: Nguồn: bản dựng nguyên mẫu của nhóm tác giả.}
 
-Ứng dụng chạy trên điện thoại vì việc bàn giao diễn ra ở sảnh, trong mười lăm phút cao điểm. Biên bản bảy mục mở rộng từ danh mục kiểm tra khi thu hồi của Grover: màn hình, bàn phím, loa, camera, kết nối [[ref:https://www.grover.com/at-en/g-about/asset-condition]]. Quyết định đáng chú ý nhất: nút ký và giao máy bị khoá cho tới khi đủ bảy mục và đủ ảnh, và quy tắc chặn nằm ở tầng máy chủ chứ không chỉ ở giao diện.
+Ứng dụng chạy trên điện thoại vì việc bàn giao diễn ra ở sảnh, trong mười lăm phút cao điểm. Cần phân biệt hai danh mục dễ lẫn: **danh mục chuẩn bị máy mười hai mục** ở Phụ lục D chạy trong kho trước khi máy rời quầy, còn **biên bản kiểm tra bảy mục** trên màn hình này là phần đối chiếu tình trạng ngay lúc giao máy trước mặt khách. Bảy mục đó mở rộng từ danh mục kiểm tra khi thu hồi của Grover: màn hình, bàn phím, loa, camera, kết nối [[ref:https://www.grover.com/at-en/g-about/asset-condition]]. Quyết định đáng chú ý nhất: nút ký và giao máy bị khoá cho tới khi đủ bảy mục và đủ ảnh, và quy tắc chặn nằm ở tầng máy chủ chứ không chỉ ở giao diện.
 
 | Phần tử | Mục đích |
 |---|---|
@@ -121,13 +121,13 @@ Màn hình này gần một phần mềm quản lý tài sản thuần tuý nh�
 {caption: Phần tử chính của màn hình kho máy.}
 {widths: 2,3}
 
-![Chi tiết đơn thuê với dải tám trạng thái vòng đời, nhật ký tám sự kiện có dấu thời gian, sáu khung ảnh hiện trạng và thẻ người thuê.](assets/screenshots/09-order.png){w=16}{src: Nguồn: bản dựng nguyên mẫu của nhóm tác giả.}
+![Chi tiết đơn thuê với dải trạng thái rút gọn còn tám chặng, nhật ký tám sự kiện có dấu thời gian, sáu khung ảnh hiện trạng và thẻ người thuê.](assets/screenshots/09-order.png){w=16}{src: Nguồn: bản dựng nguyên mẫu của nhóm tác giả.}
 
 Màn hình này dùng khi có tranh chấp nên được thiết kế để đọc chứ không để sửa. Nhật ký ghi từng sự kiện kèm giờ, diễn giải và nguồn phát sinh, theo mô hình chỉ ghi thêm [[ref:https://deepwiki.com/grokability/snipe-it/4.4-activity-logging]]. Sáu ảnh hiện trạng lưu kèm mã băm SHA-256. Nút khoá máy từ xa nằm cuối cùng, màu cảnh báo, ghi rõ cần hai người duyệt.
 
 | Phần tử | Mục đích |
 |---|---|
-| Dải tám trạng thái | Định vị đơn trong vòng đời chỉ bằng một cái liếc |
+| Dải trạng thái rút gọn còn tám chặng | Định vị đơn trong vòng đời chỉ bằng một cái liếc. Mười ba trạng thái kỹ thuật ở Chương 10 được gộp lại thành tám chặng khách và nhân viên nhìn thấy; các nhánh ngoại lệ chỉ hiện khi thực sự xảy ra |
 | Nhật ký sự kiện có nguồn | Phân biệt việc do hệ thống, nhân viên hay cổng thanh toán làm |
 | Nút khoá máy cần hai người duyệt | Không cá nhân nào tự khoá được máy của khách |
 {caption: Phần tử chính của màn hình chi tiết đơn và nhật ký.}

@@ -30,7 +30,7 @@ SV: sinh viên. NV: nhân viên giao nhận. QT: quản trị viên. HT: tác v�
 |---|---|---|---|---|
 | F01 | Đăng ký bằng email `@fpt.edu.vn` và mã sinh viên | SV | Bắt buộc | `users.email_fpt` duy nhất, danh tính trường thay giấy tờ [[ref:https://www.grover.com/us-en/how-it-works]] |
 | F02 | Đăng nhập, hai lớp cho quản trị | SV·NV·QT | Bắt buộc | Quản trị khoá được máy khách |
-| F03 | Xác minh CCCD kèm video người sống | SV·QT | Bắt buộc | `POST /api/kyc/submit`, duyệt tay khi điểm khớp dưới 0,90 |
+| F03 | Xác minh CCCD kèm video người sống | SV·QT | Bắt buộc | `POST /api/kyc/submit`, duyệt tay khi điểm so khớp khuôn mặt trong khoảng 0,55 đến 0,68 (ngưỡng ở Chương 6) |
 | F04 | Tra máy trống theo ca thi | SV | Bắt buộc | `GET /api/availability?slot_id=&model_id=` |
 | F05 | Danh sách máy kèm ngày test EOS, SEB | SV | Bắt buộc | `devices.seb_tested_at` |
 | F06 | Giữ chỗ có hạn mười phút | SV | Bắt buộc | `POST /api/holds`, `inventory_holds.expires_at`, dọn dẹp đổi cờ |
@@ -50,10 +50,10 @@ SV: sinh viên. NV: nhân viên giao nhận. QT: quản trị viên. HT: tác v�
 | F20 | Điểm tín nhiệm và bậc cọc tự động | HT | Nên có | `users.trust_score`, cọc theo hồ sơ rủi ro [[ref:https://help.turo.com/en_us/security-deposits-us-HkbE44lE9]] |
 | F21 | Danh sách chặn theo số CCCD đã băm | QT | Bắt buộc | `blocklist(id_number_hash, reason)` |
 | F22 | Nhắc hạn và cảnh báo quá hạn | HT·QT | Bắt buộc | `outbox_messages`, mốc T-12h, T-2h, T+15 phút |
-| F23 | Khoá màn hình qua MDM, hai người duyệt | QT | Nên có | `lock_requests(requested_by, approved_by, reason)` |
+| F23 | Khoá màn hình qua MDM, hai người duyệt | QT | Nên có | `lock_requests(requested_by, approved_by, reason)`. Năm thao tác cần hai người duyệt được liệt kê thống nhất ở Chương 5 và Chương 7 |
 | F24 | Báo cáo khai thác, doanh thu, sự cố | QT | Nên có | Đầu vào chương tài chính |
 | F25 | Nhật ký kiểm toán chỉ ghi thêm, nối băm | HT | Bắt buộc | `audit_logs` có trigger chặn `UPDATE`, `DELETE` [[ref:https://www.locatorx.com/blog/the-truth-about-asset-records-why-immutability-is-the-foundation-of-a-verifiable-chain-of-custody]] |
-| F26 | Kết xuất hồ sơ một đơn ra PDF | QT | Bắt buộc | Chứng cứ trình báo theo Điều 175 Bộ luật Hình sự 2015 |
+| F26 | Kết xuất hồ sơ một đơn ra PDF | QT | Bắt buộc | Chứng cứ trình báo theo Điều 175 Bộ luật Hình sự 2015 *[Cần kiểm chứng, xem Chương 17]* |
 | F27 | Xuất CSV, sinh viên tự tải hồ sơ | SV·QT | Nên có | Kế toán và quyền tiếp cận dữ liệu |
 | F28 | Xoá theo yêu cầu, ảnh eKYC sau 90 ngày | HT·QT | Bắt buộc | `kyc_profiles.images_purge_at` |
 | F29 | Đánh giá sau lượt thuê | SV | Để sau | Chưa đủ lượt để trung bình có nghĩa |

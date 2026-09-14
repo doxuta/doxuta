@@ -26,7 +26,7 @@ Thời điểm phát tốt nhất là **tuần liền trước một kỳ thi cu
 |---|---|---|
 | 5 | Trong **12 tháng qua**, đã bao giờ máy tính của bạn gặp sự cố khiến bạn lo không thi được chưa? | Một lựa chọn: chưa bao giờ / 1 lần / 2–3 lần / hơn 3 lần |
 | 6 | Nếu có, sự cố đó thuộc loại nào? | Nhiều lựa chọn: máy không lên nguồn hoặc treo · pin hỏng, hết pin giữa chừng · không cài được EOS hoặc SEB · máy quá yếu, chạy chậm · máy đang ở tiệm sửa · quên mang máy hoặc sạc · khác |
-| 7 | Lần gần nhất, bạn xử lý bằng cách nào? | Một lựa chọn: mượn máy bạn bè hoặc người thân / ra tiệm thuê / mua máy mới gấp / báo giám thị và xin xử lý / không thi được / khác |
+| 7 | Lần gần nhất, bạn xử lý bằng cách nào? | Một lựa chọn: mượn máy bạn bè hoặc người thân / **mượn máy của trường** / ra tiệm thuê / mua máy mới gấp / báo giám thị và xin xử lý / không thi được / khác |
 | 8 | Kết quả cuối cùng của lần đó? | Một lựa chọn: thi được bình thường / thi được nhưng bị ảnh hưởng / phải thi lại / mất môn |
 | 9 | Bạn mất bao lâu để xử lý tình huống đó? | Một lựa chọn: dưới 1 giờ / 1–3 giờ / nửa ngày / hơn một ngày |
 {caption: Câu 5 và câu 8 cho ra hai con số quyết định: tỉ lệ gặp sự cố mỗi năm và tỉ lệ hỏng việc thật sự.}
@@ -62,10 +62,11 @@ Thời điểm phát tốt nhất là **tuần liền trước một kỳ thi cu
 | Mức giá chấp nhận được của phân vị 50 | trung vị câu 10 | **≥ 80.000đ** |
 | Ưa thích cọc thay vì giấy tờ | tỉ lệ chọn phương án (A) ở câu 13 | **≥ 60%** |
 | Rủi ro nhà trường đã có máy dự phòng | tỉ lệ chọn "có, tôi biết chắc" ở câu 15 | **≤ 20%**, và phải hỏi trực tiếp Phòng Khảo thí để xác nhận |
-{caption: Năm ngưỡng quyết định. Nếu có từ hai ngưỡng trở lên không đạt, nhóm nên dừng lại và thiết kế lại mô hình.}
+| Tỉ lệ thực sự mượn được máy của trường | tỉ lệ chọn "mượn máy của trường" ở câu 7, tính trong nhóm từng gặp sự cố | **≤ 30%** — đây là ngưỡng dừng nêu ở Chương 16 |
+{caption: Sáu ngưỡng quyết định. Nếu có từ hai ngưỡng trở lên không đạt, nhóm nên dừng lại và thiết kế lại mô hình.}
 {widths: 4,5,2.5}
 
 :::warn Ngưỡng dừng
 Khảo sát này không phải thủ tục cho đủ bài. Nó là cửa kiểm soát trước khi bỏ ra hơn chín mươi triệu đồng.
-Nhóm cam kết chỉ mua máy sau khi có ít nhất 150 phiếu hợp lệ và đạt tối thiểu bốn trong năm ngưỡng ở bảng trên.
+Nhóm cam kết chỉ mua máy sau khi có ít nhất 150 phiếu hợp lệ và đạt tối thiểu **năm trong sáu ngưỡng** ở bảng trên.
 :::

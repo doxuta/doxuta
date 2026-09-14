@@ -113,8 +113,8 @@ thành công nếu không xác thực chữ ký số. Đây là điểm yếu th
 
 Nhóm bù đắp bằng bốn việc ngoài kỹ thuật. Một, bắt buộc email `@fpt.edu.vn` và mã số sinh viên, tức dựa vào
 một tổ chức đã xác minh danh tính giùm mình. Hai, đối chiếu thẻ sinh viên trực quan khi giao máy, không chụp
-và không lưu. Ba, chụp ảnh người nhận cầm thẻ bên cạnh máy có dấu thời gian ở **mỗi lượt bàn giao**, theo
-nguyên tắc xác thực lại từng giao dịch của Turo
+và không lưu ảnh của tấm thẻ. Ba, chụp ảnh người nhận đứng cạnh máy có dấu thời gian ở **mỗi lượt bàn giao**,
+trong khung hình **không có giấy tờ tuỳ thân**, theo nguyên tắc xác thực lại từng giao dịch của Turo
 [[ref:https://www.miteksystems.com/blog/innovator-qa-mike-wilkins-senior-director-trust-safety-at-turo]].
 Bốn, mỗi khách tối đa một máy mỗi lượt. Thời hạn lưu và việc xoá ảnh xác minh ở Chương 7, căn cứ pháp lý ở
 Chương 17.
@@ -249,7 +249,7 @@ việc nhóm phải chịu. Đây cũng là hồ sơ cần khi trình báo.
 
 ### Lớp 5: Pháp lý
 
-Nhắc nợ bằng văn bản gửi tới địa chỉ đã đăng ký, rồi trình báo theo **Điều 175 Bộ luật Hình sự 2015** về lạm
+Nhắc nợ bằng văn bản gửi tới địa chỉ đã đăng ký, rồi trình báo theo **Điều 175 Bộ luật Hình sự 2015** *[Cần kiểm chứng, xem Chương 17]* về lạm
 dụng tín nhiệm chiếm đoạt tài sản. Lớp này **không chặn được gì**, nó chỉ làm tăng chi phí kỳ vọng của hành
 vi chiếm đoạt, và chỉ hoạt động khi lớp 3 đã làm đúng việc của mình.
 
@@ -294,7 +294,7 @@ Ranh giới này khả thi về kỹ thuật vì công cụ được chọn vố
 báo và khoá, không có lệnh xoá dữ liệu độc lập
 [[ref:https://raw.githubusercontent.com/prey/mcp-prey/main/README.md]], còn MeshCentral là điều khiển từ xa và
 bản đồ thiết bị, không phải công cụ giám sát hành vi [[ref:https://github.com/Ylianst/MeshCentral]]. Về dữ
-liệu vị trí, mốc tham chiếu nhóm đặt là giữ tối đa 24 giờ rồi xoá, đúng cách nền tảng quản lý thiết bị của
+liệu vị trí, mốc nhóm đặt là giữ **bản ghi vị trí chi tiết tối đa 24 giờ**, sau đó chỉ giữ dạng đã ẩn danh hoá tới 90 ngày để phục vụ hồ sơ trình báo nếu có vụ mất máy, đúng như bảng kê dữ liệu ở Chương 7. Mốc 24 giờ lấy theo cách nền tảng quản lý thiết bị của
 Microsoft xử lý dữ liệu định vị Windows
 [[ref:https://raw.githubusercontent.com/MicrosoftDocs/memdocs/main/intune/device-management/actions/locate.md]].
 Bài học minh bạch thì lấy từ Getaround: cơ quan quản lý xử lý họ vì mô tả sai mức độ an toàn và bảo mật của

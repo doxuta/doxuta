@@ -41,7 +41,9 @@ Ba mô hình dễ bị nhầm với ExamLap, và vì sao phân biệt lại quan
   tiền này cuối cùng chảy về đâu?* Chảy về chính ExamLap để trả cho dịch vụ của chính ExamLap thì đó là quan
   hệ dân sự song phương, không cần giấy phép. Chảy về một bên thứ ba, hoặc nằm lại trong một "số dư" để
   khách tiêu dần, thì đó là dịch vụ trung gian thanh toán và **bắt buộc phải có giấy phép của Ngân hàng Nhà
-  nước**, với điều kiện vốn mà một hộ kinh doanh không bao giờ đáp ứng nổi. Văn bản trụ cột là Nghị định
+  nước**. Điều kiện cấp phép, trong đó có mức vốn tối thiểu, nhóm **chưa tra được** nên không nêu con số;
+  chỉ cần biết rằng đây là ngưỡng mà một hộ kinh doanh quy mô ExamLap không nên bước tới *[Cần kiểm chứng]*.
+  Văn bản trụ cột là Nghị định
   52/2024/NĐ-CP *[Cần kiểm chứng]*, phải tra tại [[ref:https://thuvienphapluat.vn|Thư viện pháp luật]] hoặc
   [[ref:https://vbpl.moj.gov.vn/|Cơ sở dữ liệu quốc gia về văn bản pháp luật]].
 
@@ -167,12 +169,14 @@ cứu đánh giá rủi ro cao nhất với ExamLap, cao hơn cả rủi ro mấ
    gộp vào ô tích "đồng ý điều khoản dịch vụ". ExamLap dùng ô tích riêng dẫn tới trang chính sách riêng, và
    lưu thời điểm cùng phiên bản chính sách khách đã đồng ý.
 2. **Tối thiểu hoá dữ liệu.** Nhóm chỉ thu họ tên, mã số sinh viên, email `@fpt.edu.vn`, số điện thoại và
-   một người liên hệ khẩn cấp. Trong cộng đồng khép kín, mức này đủ để định danh và độ tin cậy thực tế còn
-   cao hơn eKYC vì nhà trường biết người đó là ai.
+   một người liên hệ khẩn cấp. Trong một cộng đồng khép kín, mức dữ liệu này đủ để định danh, vì mã số sinh
+   viên và email trường đều truy ngược được về hồ sơ học vụ. Nó **không thay thế** việc xác minh danh tính
+   điện tử — eKYC vẫn là lớp phòng thủ số một ở Chương 6 — mà chỉ giới hạn phần dữ liệu ExamLap giữ lại sau
+   khi đã đối chiếu xong.
 3. **Dữ liệu sinh trắc học.** Ảnh khuôn mặt dùng để đối chiếu thuộc nhóm nhạy cảm, và chính cộng đồng lập
    trình viên Việt Nam cũng tự cảnh báo rằng nghĩa vụ tuân thủ rơi hoàn toàn về bên tích hợp
    [[ref:https://github.com/huyhuynh1905/flutter-cccd-nfc-reader]]. Ở giai đoạn hộ kinh doanh, ExamLap
-   **không lưu vector khuôn mặt** và không dùng mô hình huấn luyện sẵn bị giới hạn phi thương mại
+   **chỉ lưu vector đặc trưng khuôn mặt chứ không lưu ảnh giấy tờ quá hạn**, đặt hạn xoá tự động 90 ngày kể từ lượt thuê cuối cùng đúng như bảng kê dữ liệu ở Chương 7, và không dùng mô hình huấn luyện sẵn bị giới hạn phi thương mại
    [[ref:https://pypi.org/project/insightface/|Điều khoản pretrained model của InsightFace]].
 4. **Hồ sơ đánh giá tác động xử lý dữ liệu cá nhân.** Nghĩa vụ này đặt lên tổ chức. Nhóm nói thẳng là hiện
    chưa lập được đúng thể thức vì chưa có tư cách đăng ký, và thể thức chính xác vẫn *[Cần kiểm chứng]*.
@@ -323,12 +327,12 @@ việc đầu tiên của người rà soát là mở lại từng dòng đó tr
 
 | # | Nghĩa vụ | Căn cứ | Việc phải làm | Trạng thái |
 |---|---|---|---|---|
-| 1 | Hợp đồng thuê ghi rõ giờ nhận và giờ trả | Điều 472, 474, 476 Bộ luật Dân sự 2015 | Hoàn thiện Phụ lục C, nhờ giảng viên Luật rà soát | Trước khi mở bán |
-| 2 | Điều khoản phạt chậm trả phải có trong hợp đồng | Điều 482 khoản 4 | Giữ mức 20.000đ mỗi 30 phút, trần 200.000đ một ngày | Đã làm |
-| 3 | Không thu tiền đền hao mòn tự nhiên | Điều 479 khoản 1, Điều 482 khoản 1 | Thang cấp 1 chỉ ghi nhận, không thu phí | Đã làm |
-| 4 | Biên bản bàn giao có ảnh hai chiều | Điều 482 khoản 1 | Sáu ảnh kèm mã băm SHA-256 lúc giao và lúc nhận | Trước khi mở bán |
-| 5 | Kiểm tra năng lực hành vi dân sự của khách | Điều 117 khoản 1 điểm a | Kiểm tra ngày sinh; khách dưới 18 tuổi cần người đại diện đồng ý | Trước khi mở bán |
-| 6 | Gọi đúng tên khoản bảo đảm là tiền ký cược | Điều 329 | Sửa câu chữ trong hợp đồng và trên giao diện | Trước khi mở bán |
+| 1 | Hợp đồng thuê ghi rõ giờ nhận và giờ trả | Điều 472, 474, 476 Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Hoàn thiện Phụ lục C, nhờ giảng viên Luật rà soát | Trước khi mở bán |
+| 2 | Điều khoản phạt chậm trả phải có trong hợp đồng | Điều 482 khoản 4 Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Giữ mức 20.000đ mỗi 30 phút, trần 200.000đ một ngày | Đã làm |
+| 3 | Không thu tiền đền hao mòn tự nhiên | Điều 479 khoản 1 và Điều 482 khoản 1 Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Thang cấp 1 chỉ ghi nhận, không thu phí | Đã làm |
+| 4 | Biên bản bàn giao có ảnh hai chiều | Điều 482 khoản 1 Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Sáu ảnh kèm mã băm SHA-256 lúc giao và lúc nhận | Trước khi mở bán |
+| 5 | Kiểm tra năng lực hành vi dân sự của khách | Điều 117 khoản 1 điểm a Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Kiểm tra ngày sinh; khách dưới 18 tuổi cần người đại diện đồng ý | Trước khi mở bán |
+| 6 | Gọi đúng tên khoản bảo đảm là tiền ký cược | Điều 329 Bộ luật Dân sự 2015 *[Cần kiểm chứng]* | Sửa câu chữ trong hợp đồng và trên giao diện | Trước khi mở bán |
 | 7 | Không giữ bản gốc giấy tờ tuỳ thân của khách | Luật Căn cước 26/2023/QH15 Điều 7 *[Cần kiểm chứng]* | Chỉ xem và đối chiếu tại quầy; huấn luyện nhân viên giao nhận | Đã làm ở mức nguyên tắc |
 | 8 | Không chạm vào hoạt động trung gian thanh toán | Nghị định 52/2024/NĐ-CP *[Cần kiểm chứng]* | Không ví, không số dư, không thu hộ; áp phép thử "tiền này của ai" cho mọi tính năng mới | Đã làm |
 | 9 | Không tiêu vào tiền ký cược của khách | Kỷ luật tự đặt của nhóm | Mở tài khoản ngân hàng riêng chỉ giữ tiền ký cược | Trước khi mở bán |

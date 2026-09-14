@@ -62,7 +62,7 @@ Toàn bộ tiền dùng kiểu `integer` đơn vị đồng, không dùng số t
 | | `device_id` | `uuid` | `NULL` tới bước gán máy | Điền trễ nhất có thể, để còn hoán đổi máy |
 | | `status` | `text` | `CHECK` mười ba giá trị | Khớp đúng máy trạng thái đơn thuê |
 | | `rent_fee` | `integer` | `CHECK (rent_fee >= 0)` | 79.000đ, 99.000đ hay 129.000đ tuỳ nhóm máy |
-| | `waiver_fee` | `integer` | `CHECK (waiver_fee IN (0, 15000))` | Phí miễn trừ thiệt hại tự chọn |
+| | `waiver_fee` | `integer` | `CHECK (waiver_fee IN (0, 15000, 69000))` | Phí miễn trừ thiệt hại tự chọn: 15.000đ mỗi lượt hoặc 69.000đ cho gói tháng |
 | | `deposit` | `integer` | `CHECK (deposit IN (0, 150000, 300000))` | Ba bậc cọc theo điểm tín nhiệm |
 | `payments` | `order_id` | `uuid` | `NOT NULL REFERENCES orders` | Một đơn có nhiều giao dịch |
 | | `kind` | `text` | `CHECK IN ('rent','waiver','deposit','late_fee','deduction','refund')` | Tách tiền thuê với tiền cọc, vì cọc phải trả lại |
@@ -72,6 +72,23 @@ Toàn bộ tiền dùng kiểu `integer` đơn vị đồng, không dùng số t
 {caption: Cột, kiểu, ràng buộc và ý nghĩa nghiệp vụ của sáu bảng quan trọng nhất trong lược đồ ExamLap.}
 {widths: 3,4,3,6,8}
 {note: Các cột phụ trợ như `created_at`, `updated_at`, `deleted_at` có ở mọi bảng nhưng không liệt kê lại.}
+
+Ngoài sáu bảng trên, hệ thống còn bảy bảng phụ trợ được các Chương 8, 9, 10 và 13 gọi tên. Chúng đơn giản
+hơn nên chỉ liệt kê cột tối thiểu, nhưng phải có đủ ngay từ bản chạy được đầu tiên vì nhiều quy tắc bất biến
+ở cuối Chương 10 dựa vào chúng.
+
+| Bảng | Cột tối thiểu | Ràng buộc đáng chú ý | Dùng ở đâu |
+|---|---|---|---|
+| `incidents` | `id`, `order_id`, `device_id`, `type`, `severity`, `deduction_amount`, `status`, `created_at` | `CHECK (deduction_amount >= 0)`; `type` khớp các mục trong Phụ lục B | Phiếu sự cố và khấu trừ khi thu hồi máy |
+| `maintenance_logs` | `id`, `device_id`, `type`, `cost`, `vendor`, `started_at`, `finished_at` | Máy đang có bản ghi chưa `finished_at` thì không vào được trạng thái `ready` | Bảo trì, thay pin, quyết định thanh lý |
+| `lock_requests` | `id`, `device_id`, `order_id`, `reason`, `requested_by`, `approved_by`, `executed_at` | `CHECK (approved_by IS NOT NULL AND approved_by <> requested_by)` — đây là nơi ép quy tắc hai người duyệt R10 | Khoá màn hình từ xa |
+| `blocklist` | `id`, `id_number_hash`, `reason`, `created_by`, `created_at`, `released_at` | `UNIQUE (id_number_hash) WHERE released_at IS NULL` | Chặn khách đã vi phạm, kiểm ở bước eKYC |
+| `notifications` | `id`, `user_id`, `channel`, `template`, `payload`, `sent_at`, `status` | Chỉ ghi khi đã gửi thành công; thất bại thì nằm lại `outbox_messages` | Nhắc hạn, báo hoàn cọc, báo khấu trừ |
+| `outbox_messages` | `id`, `aggregate_id`, `event_type`, `payload`, `created_at`, `processed_at`, `attempts` | Chỉ mục một phần trên `processed_at IS NULL`; ghi cùng giao dịch với thay đổi nghiệp vụ | Mẫu hộp thư đi, bảo đảm gửi ít nhất một lần |
+| `custody_events` | `id`, `device_id`, `order_id`, `from_state`, `to_state`, `actor_id`, `created_at` | Chỉ ghi thêm, cùng chế độ khoá với `audit_logs` | Chuỗi chuyển giao tài sản, dùng khi phải chứng minh với bên thứ ba |
+{caption: Bảy bảng phụ trợ và lý do từng bảng tồn tại.}
+{widths: 2.6,6.5,6,4}
+{note: `lock_requests` và `custody_events` là hai bảng dễ bị bỏ quên nhất khi lập trình, trong khi chúng lại là nơi duy nhất ép được hai quy tắc bất biến R10 và R08 ở cuối Chương 10.}
 
 Dưới đây là câu lệnh tạo thật của hai bảng nặng nhất về quy tắc.
 
@@ -85,21 +102,21 @@ CREATE TABLE orders (
     device_id   uuid REFERENCES devices(id),          -- NULL cho tới bước gán máy
     status      text NOT NULL DEFAULT 'draft',
     rent_fee    integer NOT NULL CHECK (rent_fee >= 0),
-    waiver_fee  integer NOT NULL DEFAULT 0      CHECK (waiver_fee IN (0, 15000)),
+    waiver_fee  integer NOT NULL DEFAULT 0      CHECK (waiver_fee IN (0, 15000, 69000)),
     deposit     integer NOT NULL DEFAULT 300000 CHECK (deposit IN (0, 150000, 300000)),
     late_fee    integer NOT NULL DEFAULT 0      CHECK (late_fee BETWEEN 0 AND 200000),
     created_at  timestamptz NOT NULL DEFAULT now(),
     updated_at  timestamptz NOT NULL DEFAULT now(),
 
     CONSTRAINT orders_status_valid CHECK (status IN (
-        'draft','pending_payment','paid','assigned','renting','overdue',
-        'pending_inspection','incident','refunded','no_show','lost',
+        'draft','awaiting_payment','paid','device_assigned','renting','overdue',
+        'awaiting_inspection','incident','refunded','no_show','lost',
         'hold_expired','closed')),
 
     -- Từ bước gán máy trở đi, đơn bắt buộc phải trỏ vào một máy thật.
     CONSTRAINT orders_device_required CHECK (
         device_id IS NOT NULL
-        OR status IN ('draft','pending_payment','paid','hold_expired','no_show'))
+        OR status IN ('draft','awaiting_payment','paid','hold_expired','no_show'))
 );
 
 -- Một sinh viên chỉ giữ được một đơn còn sống cho mỗi ca thi.
@@ -252,7 +269,7 @@ BEGIN;
   ON CONFLICT (provider, provider_txn_id) DO NOTHING;   -- gửi lại 10 lần vẫn 1 dòng
 
   UPDATE orders SET status = 'paid', updated_at = now()
-   WHERE id = $1 AND status = 'pending_payment';        -- chỉ tiến, không lùi
+   WHERE id = $1 AND status = 'awaiting_payment';      -- chỉ tiến, không lùi
 
   INSERT INTO outbox_messages (topic, payload)
   VALUES ('order.paid', jsonb_build_object('order_id', $1));
@@ -302,7 +319,7 @@ WHERE a.prev_hash <> b.row_hash;
 ```
 {caption: Chặn sửa và xoá nhật ký ở cấp cơ sở dữ liệu bằng trigger cộng thu hồi quyền, kèm truy vấn kiểm tra chuỗi băm chạy hằng đêm.}
 
-Điều này quan trọng khi phải chứng minh với bên thứ ba. Khi hồ sơ một đơn được kết xuất để trình báo theo *Điều 175 Bộ luật Hình sự 2015*, thứ có sức nặng không phải là ảnh chụp màn hình mà là một chuỗi bản ghi mà chính nhóm cũng không sửa được. Chỉ ghi thêm bảo vệ nhóm khỏi lỗi của mã nguồn mình, nhưng tự nó chưa chứng minh được với người ngoài rằng không ai có quyền truy cập đã lặng lẽ sửa một dòng, và đó là lý do mỗi dòng còn mang mã băm của dòng trước [[ref:https://tracehold.ai/blog/immutable-audit-log-hmac-hash-chain/]] [[ref:https://medium.com/@veritaschain/append-only-is-the-easy-part-e25820208213]].
+Điều này quan trọng khi phải chứng minh với bên thứ ba. Khi hồ sơ một đơn được kết xuất để trình báo theo *Điều 175 Bộ luật Hình sự 2015* *[Cần kiểm chứng, xem Chương 17]*, thứ có sức nặng không phải là ảnh chụp màn hình mà là một chuỗi bản ghi mà chính nhóm cũng không sửa được. Chỉ ghi thêm bảo vệ nhóm khỏi lỗi của mã nguồn mình, nhưng tự nó chưa chứng minh được với người ngoài rằng không ai có quyền truy cập đã lặng lẽ sửa một dòng, và đó là lý do mỗi dòng còn mang mã băm của dòng trước [[ref:https://tracehold.ai/blog/immutable-audit-log-hmac-hash-chain/]] [[ref:https://medium.com/@veritaschain/append-only-is-the-easy-part-e25820208213]].
 
 ## Bài toán thứ tư: ảnh hiện trạng phải chứng minh được
 
@@ -364,7 +381,7 @@ LEFT JOIN devices d  ON d.id = o.device_id
 WHERE o.slot_id = $1 AND o.status <> 'hold_expired'
 ORDER BY o.status, o.code;
 
--- (3) Máy đang cho thuê mà lỡ hai nhịp check-in MDM liên tiếp.
+-- (3) Máy đang cho thuê mà lỡ ba nhịp check-in MDM liên tiếp (45 phút), đúng ngưỡng cảnh báo ở Chương 9.
 SELECT d.asset_tag, o.code, u.email_fpt, u.student_code,
        now() - d.last_checkin_at AS tre_bao_lau
 FROM devices d

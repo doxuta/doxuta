@@ -42,11 +42,11 @@ giao và sáu ảnh tại thời điểm nhận lại, cùng góc chụp.
 Khách có thể mua phí miễn trừ thiệt hại **15.000đ cho mỗi lượt thuê** hoặc **69.000đ cho gói tháng**. Khi đã mua:
 
 - Toàn bộ hư hỏng **cấp 1 và cấp 2** được miễn hoàn toàn.
-- Hư hỏng **cấp 3** được giảm trách nhiệm xuống mức miễn thường cố định **300.000đ**, phần còn lại ExamLap chịu.
+- Hư hỏng **cấp 3** được giảm trách nhiệm xuống mức miễn thường cố định **500.000đ**, phần còn lại ExamLap chịu. Mức này cố ý khác con số tiền cọc để không ai nhầm hai khoản với nhau.
 - **Không áp dụng** cho: mất máy, mất phụ kiện, hư hỏng do cố ý, hư hỏng do đưa máy cho người khác dùng,
   và hư hỏng do vào nước với dấu hiệu ngâm nước.
 
-Mức 15.000đ được đặt ở khoảng 1,3–1,9% giá thuê một lượt, thấp hơn nhiều so với kỳ vọng thiệt hại bình quân
+Mức 15.000đ tương đương khoảng 8% giá gói khẩn cấp và khoảng 19% giá một ca thi tiêu chuẩn, tức khoảng một phần năm giá thuê. Con số đó thấp hơn nhiều so với kỳ vọng thiệt hại bình quân
 mà nhóm ước tính, và được bù bằng tỉ lệ mua cao. Đây là cách chuyển một rủi ro đuôi dài, khó chịu cho khách,
 thành một khoản nhỏ có thể dự đoán được cho cả hai bên.
 

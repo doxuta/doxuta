@@ -7,8 +7,11 @@ và mô hình tài chính đều được sinh ra từ mã nguồn trong thư m�
 
 | File | Nội dung |
 |---|---|
-| `dist/Proposal-ExamLap.docx` | Bản Word, có mục lục đánh số trang thật |
+| `dist/Proposal-ExamLap.docx` | Bản Word — 277 trang, mục lục và danh mục hình/bảng có số trang thật |
 | `dist/Proposal-ExamLap.pdf` | Bản PDF xuất từ chính file Word đó |
+
+19 chương, 6 phụ lục, 94.000 chữ, 744 lần trích dẫn tới 279 nguồn, 27 hình và 39 trang ngang
+cho các sơ đồ rộng.
 
 ## Cấu trúc thư mục
 
@@ -34,6 +37,8 @@ python3 src/build_diagrams.py                 # sơ đồ Mermaid -> PNG
 python3 prototype/gen.py && python3 prototype/charts.py
 python3 src/finmodel.py                       # xem mô hình tài chính
 python3 src/collect_sources.py                # gom danh mục nguồn
+python3 src/validate.py                       # kiểm tra hình, cú pháp, URL trích dẫn
+python3 src/check_numbers.py                  # đối chiếu con số với mô hình tài chính
 cd src && python3 render.py ../content/proposal.md Proposal-ExamLap
 ```
 
