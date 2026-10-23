@@ -1,0 +1,28 @@
+sequenceDiagram
+  autonumber
+  actor NV as Nhân viên
+  actor SV as Sinh viên
+  participant APP as Ứng dụng nhân viên
+  participant API as Máy chủ
+  participant MDM as MDM
+
+  Note over NV,API: Trước giờ thi 60 phút — chuẩn bị máy
+  NV->>APP: Mở danh sách đơn của ca thi
+  APP->>API: Lấy đơn và gợi ý gán máy
+  API-->>APP: 12 đơn, ưu tiên máy pin cao nhất
+  NV->>APP: Xác nhận gán máy EL-T490-07
+  APP->>API: Gán thiết bị vào đơn
+  API->>MDM: Bật theo dõi thiết bị
+  NV->>APP: Hoàn tất 12 mục chuẩn bị (EOS, SEB, sạc, vệ sinh)
+
+  Note over SV,API: Giao máy tại sảnh
+  SV->>NV: Xuất trình mã QR đơn thuê
+  NV->>APP: Quét QR
+  APP->>API: Tra cứu đơn theo mã QR
+  API-->>APP: Thông tin khách kèm ảnh chân dung đã xác minh
+  NV->>APP: Đối chiếu mặt người với ảnh eKYC
+  NV->>APP: Chụp 6 ảnh hiện trạng máy
+  SV->>APP: Ký điện tử vào biên bản bàn giao
+  APP->>API: Gửi biên bản bàn giao
+  API->>API: Chặn nếu thiếu ảnh hoặc thiếu chữ ký
+  API-->>APP: Đơn chuyển sang trạng thái Đang thuê

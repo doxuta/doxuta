@@ -1,0 +1,63 @@
+erDiagram
+  ORDERS ||--o{ PAYMENTS : "có giao dịch"
+  DEVICE_MODELS ||--o{ PRICING_RULES : "có bảng giá"
+  USERS ||--o{ AUDIT_LOGS : "gây ra"
+  USERS ||--o{ NOTIFICATIONS : "nhận"
+  USERS ||--o| BLOCKLIST : "có thể bị"
+
+  ORDERS {
+    uuid id PK
+    string code UK
+    int rent_fee
+    int waiver_fee
+    int deposit
+  }
+  PAYMENTS {
+    uuid id PK
+    uuid order_id FK
+    string kind
+    string method
+    int amount
+    string provider_txn_id UK
+    string status
+    json raw_payload
+  }
+  PRICING_RULES {
+    uuid id PK
+    uuid model_id FK
+    string slot_type
+    int price
+    int deposit
+    int waiver_fee
+    date valid_from
+  }
+  DEVICE_MODELS {
+    uuid id PK
+    string name
+  }
+  USERS {
+    uuid id PK
+    string email_fpt UK
+  }
+  AUDIT_LOGS {
+    uuid id PK
+    string actor_type
+    uuid actor_id FK
+    string action
+    string entity_id
+    json payload
+    timestamp created_at
+  }
+  NOTIFICATIONS {
+    uuid id PK
+    uuid user_id FK
+    string channel
+    string template
+    timestamp sent_at
+  }
+  BLOCKLIST {
+    uuid id PK
+    string id_number_hash
+    string reason
+    timestamp created_at
+  }

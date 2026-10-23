@@ -1,0 +1,34 @@
+stateDiagram-v2
+  state "Nháp"                as S1
+  state "Chờ thanh toán"      as S2
+  state "Đã thanh toán"       as S3
+  state "Đã gán máy"          as S4
+  state "Đang thuê"           as S5
+  state "Quá hạn"             as S6
+  state "Chờ kiểm tra trả"    as S7
+  state "Có sự cố"            as S8
+  state "Đã hoàn cọc"         as S9
+  state "Khách không đến"     as S10
+  state "Mất tài sản"         as S11
+  state "Huỷ do hết hạn giữ"  as S12
+  state "Đóng"                as S13
+
+  [*] --> S1 : khách tạo đơn
+  S1  --> S2 : giữ suất kho 10 phút
+  S2  --> S12: quá 10 phút không trả tiền
+  S2  --> S3 : webhook báo tiền về khớp mã đơn
+  S3  --> S4 : gán mã tài sản cụ thể (trễ nhất có thể)
+  S4  --> S5 : biên bản bàn giao đủ 6 ảnh + chữ ký số
+  S4  --> S10: quá 30 phút sau giờ hẹn
+  S5  --> S7 : khách quét QR trả máy
+  S5  --> S6 : quá giờ trả
+  S6  --> S7 : khách trả muộn (chịu phí trễ)
+  S6  --> S11: quá 48 giờ, không liên lạc được
+  S7  --> S9 : máy nguyên vẹn, đủ phụ kiện
+  S7  --> S8 : phát hiện hư hỏng hoặc thiếu phụ kiện
+  S8  --> S9 : khấu trừ theo biểu phí công khai
+  S9  --> S13
+  S10 --> S13
+  S11 --> S13
+  S12 --> S13
+  S13 --> [*]

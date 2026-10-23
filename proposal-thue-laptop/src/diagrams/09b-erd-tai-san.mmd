@@ -1,0 +1,55 @@
+erDiagram
+  DEVICE_MODELS ||--o{ DEVICES : "gồm"
+  DEVICES ||--o{ ORDERS : "được gán"
+  DEVICES ||--o{ MAINTENANCE_LOGS : "có lịch sử"
+  DEVICES ||--o{ INCIDENTS : "liên quan"
+  ORDERS ||--o{ HANDOVERS : "có biên bản"
+  ORDERS ||--o{ INCIDENTS : "phát sinh"
+  HANDOVERS ||--o{ HANDOVER_PHOTOS : "kèm ảnh"
+
+  DEVICE_MODELS {
+    uuid id PK
+    string name
+  }
+  DEVICES {
+    uuid id PK
+    uuid model_id FK
+    string asset_tag UK
+    string serial UK
+    string status
+    int battery_health_pct
+    string mdm_device_id
+  }
+  ORDERS {
+    uuid id PK
+    string code UK
+    uuid device_id FK
+    string status
+  }
+  HANDOVERS {
+    uuid id PK
+    uuid order_id FK
+    string direction
+    json checklist
+    string signature_url
+  }
+  HANDOVER_PHOTOS {
+    uuid id PK
+    uuid handover_id FK
+    string angle
+    string url
+    string sha256
+  }
+  INCIDENTS {
+    uuid id PK
+    uuid order_id FK
+    uuid device_id FK
+    string type
+    int deduction_amount
+    string status
+  }
+  MAINTENANCE_LOGS {
+    uuid id PK
+    string type
+    int cost
+  }

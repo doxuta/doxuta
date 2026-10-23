@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph HONG[" SÁU CÁCH HỎNG VIỆC "]
+    direction TB
+    F1[Máy không lên nguồn]
+    F2[Pin chai, hỏng sạc]
+    F3[MacBook chip M1 trở lên]
+    F4[Máy yếu, lỗi hệ điều hành]
+    F5[Quên máy hoặc quên sạc]
+    F6[Máy đang ở tiệm sửa]
+  end
+  SV[(Máy chủ<br/>của trường)] -- 1. tải đề --> LT
+  LT[["LAPTOP CÁ NHÂN<br/>Windows + EOS + SEB<br/>2. làm bài khi không có mạng<br/>3. bài lưu trên ổ cứng máy này"]]
+  LT -- 4. nộp bài --> SV2[(Máy chủ<br/>của trường)]
+  F1 -.-> LT
+  F2 -.-> LT
+  F3 -.-> LT
+  F4 -.-> LT
+  F5 -.-> LT
+  F6 -.-> LT
+  LT -.-> KQ([Không dự thi được<br/>mất khoảng 4.424.000đ])
+  classDef hong fill:#FBEAEA,stroke:#B3261E,color:#7F1D1D
+  class F1,F2,F3,F4,F5,F6 hong
+  style LT fill:#FEF6E7,stroke:#B45309,color:#7C2D12
+  style SV fill:#EAF2FB,stroke:#1B5E9E,color:#142C4A
+  style SV2 fill:#EAF2FB,stroke:#1B5E9E,color:#142C4A
+  style KQ fill:#FBEAEA,stroke:#B3261E,color:#7F1D1D
+  style HONG fill:#FEFAFA,stroke:#E7C5C3

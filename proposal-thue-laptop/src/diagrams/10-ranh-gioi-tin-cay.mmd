@@ -1,0 +1,42 @@
+flowchart LR
+  subgraph Z1[" KHÔNG TIN CẬY "]
+    B1[Trình duyệt<br/>sinh viên]
+    B2[Điện thoại<br/>nhân viên]
+    B3[Laptop đang<br/>ở ngoài kho]
+  end
+  subgraph Z2[" LỚP BIÊN "]
+    G1[HTTPS bắt buộc]
+    G2[Giới hạn tần suất]
+    G3[Kiểm chữ ký HMAC<br/>của webhook]
+  end
+  subgraph Z3[" ỨNG DỤNG "]
+    A1[Phân quyền<br/>theo vai trò]
+    A2[Quy tắc nghiệp vụ<br/>máy trạng thái đơn]
+    A3[Nhật ký kiểm toán<br/>chỉ ghi thêm]
+  end
+  subgraph Z4[" DỮ LIỆU NHẠY CẢM "]
+    D1[(Số CCCD<br/>đã băm)]
+    D2[(Ảnh eKYC<br/>xoá sau 90 ngày)]
+    D3[(Vector<br/>khuôn mặt)]
+    D4[(Nhật ký MDM)]
+  end
+  B1 --> G1
+  B2 --> G1
+  B3 -. chỉ báo tình trạng máy .-> G1
+  G1 --> G2 --> A1
+  G3 --> A2
+  A1 --> A2 --> A3
+  A2 --> D1
+  A2 --> D2
+  A2 --> D3
+  A2 --> D4
+  classDef danger fill:#FBEAEA,stroke:#B3261E,color:#7F1D1D
+  classDef safe fill:#EAF6EE,stroke:#1E7A46,color:#14532D
+  classDef mid fill:#FEF6E7,stroke:#B45309,color:#7C2D12
+  class B1,B2,B3 danger
+  class D1,D2,D3,D4 safe
+  class G1,G2,G3 mid
+  style Z1 fill:#FEFAFA,stroke:#E7C5C3
+  style Z2 fill:#FFFDF7,stroke:#EBD6AE
+  style Z3 fill:#F8FAFD,stroke:#CBD5E1
+  style Z4 fill:#F7FCF9,stroke:#B7DCC6

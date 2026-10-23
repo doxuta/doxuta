@@ -1,0 +1,31 @@
+sequenceDiagram
+  autonumber
+  actor SV as Sinh viên
+  participant WEB as Giao diện web
+  participant API as Máy chủ ứng dụng
+  participant DB as PostgreSQL
+  participant PAY as Cổng đối soát VietQR
+  participant BANK as Ngân hàng
+
+  SV->>WEB: Chọn ngày thi, ca thi, kiểu máy
+  WEB->>API: GET /api/availability (ca thi, kiểu máy)
+  API->>DB: Đếm số máy rảnh trừ đi số suất đang giữ
+  DB-->>API: Còn 4 suất
+  API-->>WEB: Danh sách kiểu máy còn trống
+  SV->>WEB: Bấm "Chọn máy"
+  WEB->>API: POST /api/holds (Idempotency-Key)
+  Note over API,DB: Trong một giao dịch - khoá hàng tồn kho bằng SELECT FOR UPDATE,<br/>chèn bản ghi giữ chỗ hết hạn sau 10 phút, rồi commit
+  API->>DB: Ghi hold (TTL 10 phút)
+  DB-->>API: hold_id
+  API-->>WEB: Đã giữ chỗ, còn 09:59
+  SV->>WEB: Xác nhận và sang bước trả tiền
+  WEB->>API: POST /api/orders
+  API->>PAY: Tạo mã QR động (số tiền, nội dung EL-8241)
+  PAY-->>API: Chuỗi VietQR + mã tham chiếu
+  API-->>WEB: Hiển thị QR và hướng dẫn
+  SV->>BANK: Quét QR, chuyển khoản 355.000đ
+  BANK-->>PAY: Biến động số dư
+  PAY->>API: POST /webhooks/payment (có chữ ký HMAC)
+  API->>API: Kiểm chữ ký, kiểm trùng lặp theo mã giao dịch
+  API->>DB: Đổi trạng thái đơn sang "Đã thanh toán", biến hold thành booking
+  API-->>SV: Gửi email và tin Zalo kèm mã QR nhận máy

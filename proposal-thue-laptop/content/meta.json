@@ -1,0 +1,20 @@
+{
+  "org": "Trường Đại học FPT — Cơ sở Đà Nẵng",
+  "dept": "Đề xuất dự án môn Khởi nghiệp",
+  "kicker": "Đề xuất dự án khởi nghiệp",
+  "title": "ExamLap",
+  "subtitle": "Nền tảng cho thuê laptop đi thi trong khuôn viên đại học",
+  "tagline": "Không sinh viên nào phải bỏ một buổi thi vì cái máy tính.",
+  "fields": [
+    ["Tên dự án", "ExamLap — thuê laptop theo ca thi"],
+    ["Địa bàn thí điểm", "Đại học FPT Đà Nẵng — phường Hoà Hải, Ngũ Hành Sơn"],
+    ["Quy mô khởi động", "10 máy · vốn đầu tư 93.250.000đ"],
+    ["Nhóm thực hiện", "……………………………………………"],
+    ["Giảng viên hướng dẫn", "……………………………………………"],
+    ["Lớp / Học kỳ", "……………………………………………"]
+  ],
+  "place_date": "Đà Nẵng, tháng 9 năm 2026",
+  "version": "Bản 1.0 — tài liệu nội bộ phục vụ học tập",
+  "running": "ExamLap · Đề xuất dự án khởi nghiệp · Đại học FPT Đà Nẵng",
+  "logo": null
+}

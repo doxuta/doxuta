@@ -1,0 +1,25 @@
+sequenceDiagram
+  autonumber
+  actor SV as Sinh viên
+  actor NV as Nhân viên
+  participant APP as Ứng dụng nhân viên
+  participant API as Máy chủ
+  participant PAY as Cổng thanh toán
+  participant MDM as MDM
+
+  SV->>NV: Trả máy, xuất trình mã QR
+  NV->>APP: Quét QR trả máy
+  NV->>APP: Chụp 6 ảnh sau khi thuê
+  APP->>API: Gửi biên bản thu hồi
+  API->>API: So ảnh trước và sau, tính phí trễ nếu có
+  alt Máy nguyên vẹn và đúng giờ
+    API->>PAY: Lệnh hoàn cọc 300.000đ
+    PAY-->>SV: Tiền về tài khoản trong 5 phút
+    API-->>SV: Gửi biên lai và lời mời đánh giá
+  else Có hư hỏng hoặc thiếu phụ kiện
+    API->>API: Lập phiếu sự cố, tính khấu trừ theo biểu phí
+    API-->>SV: Gửi bảng kê khấu trừ kèm ảnh đối chiếu
+    SV->>API: Đồng ý hoặc khiếu nại trong 48 giờ
+  end
+  API->>MDM: Tắt theo dõi thiết bị
+  API->>API: Đưa máy về trạng thái Chờ vệ sinh

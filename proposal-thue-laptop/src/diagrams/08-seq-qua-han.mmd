@@ -1,0 +1,26 @@
+sequenceDiagram
+  autonumber
+  participant JOB as Tác vụ nền (chạy mỗi phút)
+  participant API as Máy chủ ứng dụng
+  participant MSG as Zalo ZNS / Email / SMS
+  actor SV as Người thuê
+  participant MDM as Máy chủ MDM
+  actor QL as Quản lý (người duyệt)
+  participant CQ as Cơ quan chức năng
+
+  JOB->>API: Quét các đơn quá giờ trả
+  API-->>JOB: Đơn EL-8239 quá hạn 15 phút
+  JOB->>MSG: Nhắc lần 1 "bạn đang trễ, phí trễ bắt đầu tính"
+  MSG-->>SV: Tin nhắn nhắc
+  Note over JOB,SV: T+60 phút — vẫn chưa trả
+  JOB->>MSG: Nhắc lần 2 kèm cảnh báo khoá máy
+  JOB->>QL: Đẩy cảnh báo lên bảng điều khiển
+  QL->>API: Yêu cầu khoá màn hình từ xa
+  API->>API: Bắt buộc hai người duyệt, ghi nhật ký bất biến
+  QL->>API: Người thứ hai phê duyệt
+  API->>MDM: Lệnh khoá màn hình kèm thông báo liên hệ
+  MDM-->>SV: Máy hiện màn hình khoá, dữ liệu người dùng không bị xoá
+  Note over JOB,SV: T+24 giờ — gọi điện, gửi văn bản nhắc nợ
+  Note over JOB,SV: T+48 giờ — vẫn không liên lạc được
+  API->>QL: Kết xuất hồ sơ: hợp đồng, biên bản, ảnh, nhật ký MDM
+  QL->>CQ: Trình báo theo Điều 175 Bộ luật Hình sự 2015
